@@ -1,26 +1,33 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import * as React from "react";
+import {
+  Switch,
+  Route,
+  withRouter,
+  Redirect,
+  RouteComponentProps,
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { StyledAppContainer } from "./App.styled";
+import { Home } from "./routes/Home";
+
+export type AppProps = RouteComponentProps & {};
+
+export interface AppState {}
+
+class InternalApp extends React.Component<AppProps, AppState> {
+  render() {
+    const location = this.props.location;
+
+    return (
+      <StyledAppContainer>
+        <Switch>
+          {/** Redirect the root to our default route */}
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route exact path="/home" key={location.key} component={Home} />
+        </Switch>
+      </StyledAppContainer>
+    );
+  }
 }
 
-export default App;
+export const App = withRouter(InternalApp);
