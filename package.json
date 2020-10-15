@@ -1,7 +1,16 @@
 {
   "name": "fasten-web",
   "version": "0.1.0",
+  "homepage": "http://fasten-project.eu",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/fasten-project/fasten-web"
+  },
   "private": true,
+  "license": "Apache-2.0",
+  "contributors": [
+    "Roman Širokov <romatallinn@gmail.com>"
+  ],
   "dependencies": {
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
