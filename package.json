@@ -38,9 +38,9 @@
     "prettier": "^2.1.2"
   },
   "scripts": {
-    "start": "yarn parcel --no-autoinstall src/index.html",
+    "start": "yarn parcel --no-autoinstall public/index.html",
     "try-compile": "yarn tsc --noEmit",
-    "build": "yarn parcel build --no-autoinstall src/index.html",
+    "build": "yarn parcel build --no-autoinstall public/index.html",
     "test": "yarn jest --passWithNoTests",
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
     "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
