@@ -10,11 +10,11 @@
 
 # production
 /build
-.cache/
-.dist/
+/.cache
+/dist
 
 # IDE
-.idea/
+/.idea
 
 # misc
 .DS_Store
