@@ -12,7 +12,7 @@
 </p>
 <br/>
 
-[The FASTEN project](https://github.com/fasten-project/fasten) is an intelligent software package management systems that enhance robustness and security in software ecosystems. This frontend project helps to fully utilise these systems and visualises all the valuable data that is provided. This web platform can be used by the end developers in order to get fine grained data about the vurnalabilities that one uses; in a visual and clear way.
+[The FASTEN project](https://github.com/fasten-project/fasten) is an intelligent software package management systems that enhance robustness and security in software ecosystems. This frontend project helps to fully utilise these systems and visualises all the valuable data that is provided. This web platform can be used by the end developers in order to get fine grained data about the vurnalabilities that one uses in a visual and clear way.
 
 
 ## Getting Started
@@ -36,7 +36,8 @@ $ git clone https://github.com/fasten-project/fasten-web.git
 ### Run
 
 1) Run `yarn` to install all necessary dependencies;
-1) Run `yarn start` to run the application locally.
+1) Run `yarn start` to run the application locally;
+1) Open [`localhost:1234`](http://localhost:1234) in your browser to use the platform.
 
 
 ## Built With
