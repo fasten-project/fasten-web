@@ -1,44 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/45048351/89221900-bdad6400-d5dc-11ea-8136-533875bbee8e.jpg">
+</p>
+<br/>
+<p align="center">
+    <a href="https://github.com/fasten-project/fasten-web/actions" alt="GitHub Workflow Status">
+        <img src="https://img.shields.io/github/workflow/status/fasten-project/fasten-web/Java%20CI?logo=GitHub%20Actions&logoColor=white&style=for-the-badge" /></a>
+    <a href="https://github.com/fasten-project/fasten-web/releases" alt="GitHub Workflow Status">
+                <img src="https://img.shields.io/github/v/release/fasten-project/fasten-web?logo=GitHub&style=for-the-badge" /></a>
+    <a href="https://github.com/fasten-project/fasten-web/" alt="Gitter">
+            <img src="https://img.shields.io/gitter/room/fasten-project/fasten-web?style=for-the-badge&logo=gitter" /></a>
+</p>
+<br/>
 
-## Available Scripts
+The FASTEN project is an intelligent software package management systems that enhances robustness and security in software ecosystems. This frontend project helps to fully utilise this system and visualises all the valuable data that it provides.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `yarn start`
+[[_TOC_]]
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Getting Started
 
-### `yarn test`
+### Installation
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+##### SSH
 
-### `yarn build`
+```
+// Clone this repository with SSH
+$ git clone git@github.com:fasten-project/fasten-web.git
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### HTTPS
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+// Clone this repository with HTTPS
+$ git clone https://github.com/fasten-project/fasten-web.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Run
 
-### `yarn eject`
+1) Run `yarn` to install all necessary dependencies;
+1) Run `yarn start` to run the application locally.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Built With
+- [React](http://reactjs.org) - library for user interfaces
+- [TypeScript](http://typescriptlang.org) - typed superset of JavaScript
+- [Yarn](https://yarnpkg.com) - package management
+  - [React Icons](https://react-icons.github.io/react-icons/) - icon library
+  - [Emotion](https://emotion.sh/) - a library designed for writing css styles with JavaScript
+  - [Jest](http://jestjs.io) & [Testing Library](https://testing-library.com) - code testing frameworks
+  - See all dependencies in [package.json](/frontend/package.json)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Maintainer
+Roman Sirokov <romatallinn@gmail.com> @romatallinn
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Join the community
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The FASTEN software package management efficiency relies on an open community contributing to open technologies. Related research projects, R&D engineers, early users and open source contributors are welcome to join the [FASTEN community](https://www.fasten-project.eu/view/Main/Community), to try the tools, to participate in physical and remote worshops and to share our efforts using the project [community page](https://www.fasten-project.eu/view/Main/Community) and the social media buttons below.  
+<p>
+    <a href="http://www.twitter.com/FastenProject" alt="Fasten Twitter">
+        <img src="https://img.shields.io/badge/%20-Twitter-%231DA1F2?logo=Twitter&style=for-the-badge&logoColor=white" /></a>
+    <a href="http://www.slideshare.net/FastenProject" alt="GitHub Workflow Status">
+                <img src="https://img.shields.io/badge/%20-SlideShare-%230077B5?logo=slideshare&style=for-the-badge&logoColor=white" /></a>
+    <a href="http://www.linkedin.com/groups?gid=12172959" alt="Gitter">
+            <img src="https://img.shields.io/badge/%20-LinkedIn-%232867B2?logo=linkedin&style=for-the-badge&logoColor=white" /></a>
+</p>
