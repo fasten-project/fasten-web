@@ -12,6 +12,8 @@
     "Roman Širokov <romatallinn@gmail.com>"
   ],
   "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
