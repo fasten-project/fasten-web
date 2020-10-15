@@ -31,14 +31,15 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-
+    "start": "yarn parcel --no-autoinstall src/index.html",
+    "try-compile": "yarn tsc --noEmit",
+    "build": "yarn parcel build --no-autoinstall src/index.html",
+    "test": "yarn jest --passWithNoTests",
+    "test-with-cov": "yarn jest --passWithNoTests --coverage",
     "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "eslintConfig": {
