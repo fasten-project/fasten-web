@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavBar } from "../../components/NavBar";
 
 export interface HomeProps {}
 
@@ -12,7 +13,7 @@ export class Home extends React.Component<HomeProps, HomeState> {
   render() {
     return (
       <>
-        <div>hello</div>
+        <NavBar />
       </>
     );
   }
