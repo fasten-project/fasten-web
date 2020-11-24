@@ -7,14 +7,55 @@ import {
   StyledTitle,
 } from "./Home.styled";
 import { AiOutlineSearch } from "react-icons/ai";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
+/**
+ * Props for the Home route.
+ */
 export interface HomeProps {}
 
-export interface HomeState {}
+/**
+ * State for the Package route.
+ */
+export interface HomeState {
+  /** The search query for looking up the package. */
+  searchQuery: string;
+}
 
-export class Home extends React.Component<HomeProps, HomeState> {
-  constructor(props: HomeProps, state: HomeState) {
+/**
+ * The home page of the application.
+ * Displays the text input bar for package search.
+ */
+class InternalHome extends React.Component<
+  RouteComponentProps<HomeProps>,
+  HomeState
+> {
+  constructor(props: RouteComponentProps<HomeProps>, state: HomeState) {
     super(props, state);
+    this.state = {
+      searchQuery: "",
+    };
+    this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  /**
+   * Handle change in the search query input element.
+   * @param {React.ChangeEvent} e - change event object.
+   */
+  handleSearchQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      searchQuery: e.target.value,
+    });
+  }
+
+  /**
+   * Handle search action for the package (key press callback).
+   * @param {React.KeyboardEvent} e - keyboard event object.
+   */
+  handleSearch(e: React.KeyboardEvent) {
+    if (e.key == "Enter")
+      this.props.history.push(`/packages/${this.state.searchQuery}`);
   }
 
   render() {
@@ -31,7 +72,10 @@ export class Home extends React.Component<HomeProps, HomeState> {
             <input
               type={"text"}
               name={"search"}
-              placeholder={"Search packages (ex. org.slf4j:slf4j-api)"}
+              placeholder={"Search packages (ex. junit:junit)"}
+              value={this.state.searchQuery}
+              onChange={this.handleSearchQueryChange}
+              onKeyDown={this.handleSearch}
             />
             <span>
               <AiOutlineSearch />
@@ -54,3 +98,5 @@ export class Home extends React.Component<HomeProps, HomeState> {
     );
   }
 }
+
+export const Home = withRouter(InternalHome);
