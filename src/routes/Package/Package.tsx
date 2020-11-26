@@ -29,7 +29,7 @@ export interface PackageProps {
  * State for the Package route.
  */
 export interface PackageState {
-  /** Tndicator of the current state; whether or not the page is loading. */
+  /** Indicator of the current state; whether or not the page is loading. */
   isLoading: boolean;
 
   /** The loaded Package instance from API. */
@@ -78,6 +78,17 @@ class InternalPackage extends React.Component<
           body: () => (
             <PackageTable
               kind={"MODULES"}
+              pkg={this.state.pkg[0].package_name}
+              pkgVersion={this.state.pkg[0].version}
+            />
+          ),
+        },
+        {
+          index: 1,
+          label: "Callables",
+          body: () => (
+            <PackageTable
+              kind={"CALLABLES"}
               pkg={this.state.pkg[0].package_name}
               pkgVersion={this.state.pkg[0].version}
             />

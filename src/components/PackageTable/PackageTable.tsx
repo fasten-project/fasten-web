@@ -2,19 +2,36 @@ import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
-import { getModules } from "../../requests/services/package";
+import { getCallables, getModules } from "../../requests/services/package";
+import { Callable } from "../../requests/payloads/package-callable-payload";
+
+type ModulesTableData = {
+  kind: "MODULES";
+  entities: Module[];
+};
+
+type CallablesTableData = {
+  kind: "CALLABLES";
+  entities: Callable[];
+};
 
 /**
  * The type model of the table entity.
+ * Discriminated union of {@link Module} and {@link @Callable}.
  */
-export type TableEntity = Module;
+type TableData = ModulesTableData | CallablesTableData | undefined;
 
 /**
  * The props of the package table component.
  */
 export interface PackageTableProps extends RouteComponentProps {
-  kind: "MODULES";
+  /** The type of entities included in the table. */
+  kind: "MODULES" | "CALLABLES";
+
+  /** The package name for which table is rendered. */
   pkg: string;
+
+  /** The package version for which table is rendered. */
   pkgVersion: string;
 }
 
@@ -22,8 +39,11 @@ export interface PackageTableProps extends RouteComponentProps {
  * The state of the package table component.
  */
 export interface PackageTableState {
+  /** Indicator of the current state; whether or not the page is loading. */
   isLoading: boolean;
-  entities: TableEntity[];
+
+  /** The list of entities included in the table. */
+  data: TableData;
 }
 
 class InternalPackageTable extends React.Component<
@@ -35,20 +55,19 @@ class InternalPackageTable extends React.Component<
 
     this.state = {
       isLoading: true,
-      entities: [],
+      data: undefined,
     };
   }
 
   componentDidMount(): void {
-    switch (this.props.kind) {
-      case "MODULES":
-        void this.retrieveModules();
-      default:
-        return;
-    }
+    void this.retrieveEntities();
   }
 
-  async retrieveModules() {
+  /**
+   * The method to retrieve the table entities by API.
+   * Depends on kind of the table.
+   */
+  async retrieveEntities() {
     this.setState({
       isLoading: true,
     });
@@ -56,11 +75,28 @@ class InternalPackageTable extends React.Component<
     const { pkg, pkgVersion } = this.props;
 
     try {
-      const ents: Module[] = await getModules(pkg, pkgVersion);
+      let dt: TableData = undefined;
+
+      switch (this.props.kind) {
+        case "MODULES":
+          dt = {
+            kind: "MODULES",
+            entities: await getModules(pkg, pkgVersion),
+          };
+          break;
+        case "CALLABLES":
+          dt = {
+            kind: "CALLABLES",
+            entities: await getCallables(pkg, pkgVersion),
+          };
+          break;
+        default:
+          return;
+      }
 
       this.setState({
         isLoading: false,
-        entities: ents,
+        data: dt,
       });
     } catch (error) {
       // 404?
@@ -77,30 +113,58 @@ class InternalPackageTable extends React.Component<
     switch (this.props.kind) {
       case "MODULES":
         return "Modules";
+      case "CALLABLES":
+        return "Callables";
       default:
         return "Unknown";
     }
   }
 
   /**
-   * Renders the package version entity.
-   * @param entity is {@link PackageVersion} to render.
+   * Renders the package module entity.
+   * @param entity is {@link Module} to render.
    */
-  renderRow(entity: TableEntity): React.ReactNode {
+  renderModuleRow(entity: Module): React.ReactNode {
     return (
-      <StyledVersionRow key={entity.id}>
-        {/* TODO: replace with proper router. */}
+      <StyledVersionRow key={`module_${entity.id}`}>
         <a href={""}>{entity.namespace}</a>
       </StyledVersionRow>
     );
   }
 
+  /**
+   * Renders the package callable entity.
+   * @param entity is {@link Callable} to render.
+   */
+  renderCallableRow(entity: Callable): React.ReactNode {
+    return (
+      <StyledVersionRow key={`callable_${entity.id}`}>
+        <a href={""}>{entity.fasten_uri}</a>
+      </StyledVersionRow>
+    );
+  }
+
+  renderRows(): React.ReactNode {
+    switch (this.state.data?.kind) {
+      case "MODULES":
+        return this.state.data?.entities.map(this.renderModuleRow);
+      case "CALLABLES":
+        return this.state.data?.entities.map(this.renderCallableRow);
+      default:
+        return <h1>Unknown Type {this.state.data?.kind}</h1>;
+    }
+  }
+
   render() {
+    if (this.state.isLoading) {
+      return <h1>Loading...</h1>;
+    }
+
     return (
       <StyledContainer>
         <h3>{this.getTitle()}</h3>
         <hr />
-        {this.state.entities.map(this.renderRow)}
+        {this.renderRows()}
       </StyledContainer>
     );
   }
