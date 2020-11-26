@@ -2,12 +2,19 @@ import { String } from "typescript-string-operations";
 import config from "../../config";
 import { sendRequest } from "../utils";
 import { isValidPackageResponsePayload } from "../payloads/package-payload";
+import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 
 /**
  * Endpoint for retrieving the package entity.
- * Requires additional parameters: `/mvn/packages/{name}/{version}/`.
+ * Requires additional parameters: `/mvn/packages/{name}`.
  */
 export const PACKAGE_ENDPOINT = "/mvn/packages/{0}";
+
+/**
+ * Endpoint for retrieving the package modules.
+ * Requires additional parameters: `/mvn/packages/{name}/{version}/modules`.
+ */
+export const PACKAGE_MODULES_ENDPOINT = "/mvn/packages/{0}/{1}/modules";
 
 /**
  * The request for retrieving the package entity.
@@ -19,6 +26,21 @@ export function getPackage(pkg: string) {
     String.Format(PACKAGE_ENDPOINT, pkg),
     config.api,
     isValidPackageResponsePayload,
+    {}
+  );
+}
+
+/**
+ * The request for retrieving the package modules.
+ * @param {string} pkg - the name of the package.
+ * @param {string} ver - the version of the package.
+ */
+export function getModules(pkg: string, ver: string) {
+  return sendRequest(
+    "get",
+    String.Format(PACKAGE_MODULES_ENDPOINT, pkg, ver),
+    config.api,
+    isValidModulesResponsePayload,
     {}
   );
 }

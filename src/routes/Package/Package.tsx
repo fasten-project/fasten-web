@@ -15,6 +15,7 @@ import {
   Package as PackageModel,
 } from "../../requests/payloads/package-payload";
 import { getPackage } from "../../requests/services/package";
+import { PackageTable } from "../../components/PackageTable";
 
 /**
  * Props for the Package route.
@@ -52,7 +53,7 @@ interface Tab {
   label: string;
 
   /** The content component of this tab. */
-  body: React.ComponentClass;
+  body: React.FunctionComponent;
 }
 
 /**
@@ -70,7 +71,19 @@ class InternalPackage extends React.Component<
       isLoading: true,
       pkg: defaultPackage,
       tabIndex: 0,
-      tabs: [],
+      tabs: [
+        {
+          index: 0,
+          label: "Modules",
+          body: () => (
+            <PackageTable
+              kind={"MODULES"}
+              pkg={this.state.pkg[0].package_name}
+              pkgVersion={this.state.pkg[0].version}
+            />
+          ),
+        },
+      ],
     };
   }
 
@@ -88,18 +101,19 @@ class InternalPackage extends React.Component<
 
     const { pkgParam } = this.props.match.params;
 
-    this.setState({
-      isLoading: false,
-    });
-
     try {
       const pkga: PackageModel = await getPackage(pkgParam);
 
       this.setState({
+        isLoading: false,
         pkg: pkga,
       });
     } catch (error) {
       // 404?
+      console.log("Bad error");
+      this.setState({
+        isLoading: false,
+      });
     }
   }
 
@@ -124,6 +138,10 @@ class InternalPackage extends React.Component<
 
   render() {
     const { pkg } = this.state;
+
+    if (this.state.isLoading) {
+      return <h1>Loading...</h1>;
+    }
 
     // The body of the page is defined by currently active tab.
     const TabBody =
