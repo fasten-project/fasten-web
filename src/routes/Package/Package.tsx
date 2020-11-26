@@ -46,9 +46,6 @@ export interface PackageState {
  * The data interface for the Tab element.
  */
 interface Tab {
-  /** The index of this tab. */
-  index: number;
-
   /** The label to display for this tab. */
   label: string;
 
@@ -73,7 +70,6 @@ class InternalPackage extends React.Component<
       tabIndex: 0,
       tabs: [
         {
-          index: 0,
           label: "Modules",
           body: () => (
             <PackageTable
@@ -84,7 +80,6 @@ class InternalPackage extends React.Component<
           ),
         },
         {
-          index: 1,
           label: "Callables",
           body: () => (
             <PackageTable
@@ -178,10 +173,10 @@ class InternalPackage extends React.Component<
             </StyledDateCreated>
           )}
           <StyledTabMenu>
-            {this.state.tabs.map((tab: Tab) => (
+            {this.state.tabs.map((tab: Tab, index: number) => (
               <this.TabMenuItem
-                key={tab.index}
-                index={tab.index}
+                key={`tab_${index}`}
+                index={index}
                 label={tab.label}
               />
             ))}
