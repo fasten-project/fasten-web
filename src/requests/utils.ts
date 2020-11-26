@@ -28,15 +28,12 @@ export async function sendRequest<RequestT, ResponseT>(
       ...config,
     });
 
-    // TODO: replace occurrences of `response.data[0]` with `response.data`.
-    //       It is a workaround for https://github.com/fasten-project/fasten/issues/131.
-
-    if (responseValidator(response.data[0])) {
-      return response.data[0];
+    if (responseValidator(response.data)) {
+      return response.data;
     } else {
       throw new APIResponseError(
         "Received malformed API data!",
-        `Data received: ${JSON.stringify(response.data[0])}`
+        `Data received: ${JSON.stringify(response.data)}`
       );
     }
   } catch (error) {
