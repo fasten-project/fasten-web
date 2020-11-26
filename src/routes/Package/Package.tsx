@@ -136,16 +136,16 @@ class InternalPackage extends React.Component<
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            {pkg.project_name} {pkg.version}
-            {pkg.repository && (
-              <StyleRepoLink href={pkg.repository}>
+            {pkg[0].project_name} {pkg[0].version}
+            {pkg[0].repository && (
+              <StyleRepoLink href={pkg[0].repository}>
                 <GoRepo />
               </StyleRepoLink>
             )}
           </StyledTitle>
-          {pkg.created_at && (
+          {pkg[0].created_at && (
             <StyledDateCreated>
-              Created {pkg.created_at.toLocaleDateString()}
+              Created {pkg[0].created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
           <StyledTabMenu>
