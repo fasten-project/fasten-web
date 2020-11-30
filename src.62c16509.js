@@ -74307,7 +74307,7 @@ var __assign = void 0 && (void 0).__assign || function () {
 
 _reactDom.default.render((0, _jsxRuntime.jsx)(_react.default.StrictMode, {
   children: (0, _jsxRuntime.jsx)(_reactRouterDom.HashRouter, __assign({
-    basename: "/"
+    basename: undefined
   }, {
     children: (0, _jsxRuntime.jsx)(_App.App, {}, void 0)
   }), void 0)
