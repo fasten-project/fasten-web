@@ -33,6 +33,10 @@ $ git clone git@github.com:fasten-project/fasten-web.git
 $ git clone https://github.com/fasten-project/fasten-web.git
 ```
 
+### Requirements
+- Running [fasten-project/fasten](https://github.com/fasten-project/fasten) instance with [Rest API](https://github.com/fasten-project/fasten/tree/develop/analyzer/restapi-plugin) plugin.
+    - Base URL to Rest API can be adjusted at [src/config.ts]().
+
 ### Run
 
 1) Run `yarn` to install all necessary dependencies;

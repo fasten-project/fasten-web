@@ -16,7 +16,9 @@ export interface NavBarProps extends RouteComponentProps {}
 
 export interface NavBarState {}
 
-const NavLink: React.FunctionComponent<{ href: string, target: string }> = (props) => (
+const NavLink: React.FunctionComponent<{ href: string; target: string }> = (
+  props
+) => (
   <StyledNavItem>
     <StyledNavLink {...props} />
   </StyledNavItem>

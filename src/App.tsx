@@ -9,6 +9,7 @@ import {
 
 import { StyledAppContainer } from "./App.styled";
 import { Home } from "./routes/Home";
+import { Package } from "./routes/Package";
 
 export type AppProps = RouteComponentProps & {};
 
@@ -24,6 +25,12 @@ class InternalApp extends React.Component<AppProps, AppState> {
           {/** Redirect the root to our default route */}
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/home" key={location.key} component={Home} />
+          <Route
+            exact
+            path="/packages/:pkgParam/:verParam?/:moduleParam?/:callableParam?"
+            key={location.key}
+            component={Package}
+          />
         </Switch>
       </StyledAppContainer>
     );
