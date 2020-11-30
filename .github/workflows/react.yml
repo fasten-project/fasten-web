@@ -58,6 +58,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build
+        run: yarn build
+
       - name: Deploy to Github Pages
         run: |
           git config --global user.name $user_name
