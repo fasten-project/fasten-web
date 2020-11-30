@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/fasten-web/static/css/main.4b771a9b.chunk.css",
-    "main.js": "/fasten-web/static/js/main.57dc1e80.chunk.js",
-    "main.js.map": "/fasten-web/static/js/main.57dc1e80.chunk.js.map",
+    "main.js": "/fasten-web/static/js/main.4f67cb5f.chunk.js",
+    "main.js.map": "/fasten-web/static/js/main.4f67cb5f.chunk.js.map",
     "runtime-main.js": "/fasten-web/static/js/runtime-main.8a70e8d3.js",
     "runtime-main.js.map": "/fasten-web/static/js/runtime-main.8a70e8d3.js.map",
     "static/js/2.e969ef10.chunk.js": "/fasten-web/static/js/2.e969ef10.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.8a70e8d3.js",
     "static/js/2.e969ef10.chunk.js",
     "static/css/main.4b771a9b.chunk.css",
-    "static/js/main.57dc1e80.chunk.js"
+    "static/js/main.4f67cb5f.chunk.js"
   ]
 }
