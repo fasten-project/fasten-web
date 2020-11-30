@@ -84,8 +84,8 @@ class InternalPackage extends React.Component<
             return (
               <PackageTable
                 kind={"MODULES"}
-                pkg={this.state.pkg[0].package_name}
-                pkgVersion={this.state.pkg[0].version}
+                pkg={this.state.pkg.package_name}
+                pkgVersion={this.state.pkg.version}
               />
             );
           },
@@ -95,8 +95,8 @@ class InternalPackage extends React.Component<
           body: () => (
             <PackageTable
               kind={"CALLABLES"}
-              pkg={this.state.pkg[0].package_name}
-              pkgVersion={this.state.pkg[0].version}
+              pkg={this.state.pkg.package_name}
+              pkgVersion={this.state.pkg.version}
             />
           ),
         },
@@ -165,7 +165,7 @@ class InternalPackage extends React.Component<
     // Redirect to the latest version by default.
     if (verParam == undefined) {
       return (
-        <Redirect to={`/packages/${pkg[0].package_name}/${pkg[0].version}`} />
+        <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />
       );
     }
 
@@ -180,18 +180,18 @@ class InternalPackage extends React.Component<
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            {pkg[0].project_name} {pkg[0].version}
-            {pkg[0].repository && (
-              <StyleRepoLink href={pkg[0].repository}>
+            {pkg.project_name} {pkg.version}
+            {pkg.repository && (
+              <StyleRepoLink href={pkg.repository}>
                 <GoRepo />
               </StyleRepoLink>
             )}
             {moduleParam && ` / ${moduleParam}`}
             {callableParam && ` / ${callableParam}`}
           </StyledTitle>
-          {pkg[0].created_at && (
+          {pkg.created_at && (
             <StyledDateCreated>
-              Created {pkg[0].created_at.toLocaleDateString()}
+              Created {pkg.created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
           <StyledTabMenu>
