@@ -1,7 +1,7 @@
 {
   "name": "fasten-web",
   "version": "0.1.0",
-  "homepage": "http://fasten-project.eu",
+  "homepage": "https://fasten-project.github.io/web",
   "repository": {
     "type": "git",
     "url": "http://github.com/fasten-project/fasten-web"
@@ -45,6 +45,7 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
+    "gh-pages": "^3.1.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.1.2",
     "ts-jest": "^26.4.4"
@@ -52,10 +53,11 @@
   "scripts": {
     "start": "yarn parcel --no-autoinstall public/index.html",
     "try-compile": "yarn tsc --noEmit",
-    "build": "yarn parcel build --no-autoinstall public/index.html",
     "test": "yarn jest --passWithNoTests",
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
-    "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "build": "yarn parcel build --no-autoinstall public/index.html",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
