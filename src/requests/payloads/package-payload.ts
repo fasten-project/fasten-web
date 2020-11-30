@@ -1,9 +1,5 @@
 import * as yup from "yup";
 
-// TODO: Package response payload should not be an array of Package instance.
-//       It is a workaround for https://github.com/fasten-project/fasten/issues/131.
-//       Revert c619a26fddfa6d29073379d62a7ede1292cc152f when fixed.
-
 /**
  * Validation schema for {@link Package}.
  */
@@ -36,21 +32,19 @@ export const PACKAGE_SCHEMA = yup
 /**
  * The type of the Package instance generated from yup schema {@link PACKAGE_SCHEMA}.
  */
-export type Package = yup.InferType<typeof PACKAGE_SCHEMA>[];
+export type Package = yup.InferType<typeof PACKAGE_SCHEMA>;
 
 /**
  * Default object for {@link Package}
  */
-export const defaultPackage: Package = [
-  {
-    id: 0,
-    package_name: "",
-    forge: "mvn",
-    project_name: "",
-    repository: "",
-    created_at: null,
-  },
-];
+export const defaultPackage: Package = {
+  id: 0,
+  package_name: "",
+  forge: "mvn",
+  project_name: "",
+  repository: "",
+  created_at: null,
+};
 
 /**
  * Validates that the given response payload is as expected.
@@ -60,5 +54,5 @@ export const defaultPackage: Package = [
 export function isValidPackageResponsePayload(
   payload: any
 ): payload is Package {
-  return yup.array().of(PACKAGE_SCHEMA).isValidSync(payload);
+  return PACKAGE_SCHEMA.isValidSync(payload);
 }
