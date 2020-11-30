@@ -1,0 +1,77 @@
+{
+  "name": "fasten-web",
+  "version": "0.1.0",
+  "homepage": "https://fasten-project.github.io/web",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/fasten-project/fasten-web"
+  },
+  "private": true,
+  "license": "Apache-2.0",
+  "contributors": [
+    "Roman Širokov <romatallinn@gmail.com>"
+  ],
+  "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.1.1",
+    "@emotion/styled": "^11.0.0",
+    "axios": "^0.21.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.1.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "typescript": "~4.1.2",
+    "typescript-string-operations": "^1.4.1",
+    "uuid": "^8.3.1",
+    "yup": "^0.31.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "@types/axios": "^0.14.0",
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-helmet": "^6.1.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/uuid": "^8.3.0",
+    "@types/yup": "^0.29.8",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.4",
+    "gh-pages": "^3.1.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4"
+  },
+  "scripts": {
+    "start": "yarn parcel --no-autoinstall public/index.html",
+    "try-compile": "yarn tsc --noEmit",
+    "test": "yarn jest --passWithNoTests",
+    "test-with-cov": "yarn jest --passWithNoTests --coverage",
+    "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "build": "yarn parcel build --no-autoinstall public/index.html",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
