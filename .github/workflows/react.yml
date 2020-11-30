@@ -1,7 +1,8 @@
 # Basic workflow for the react application.
 # This workflow will do a clean install and cache of dependencies, build the source code and run tests.
+# If it is the main branch on push, the workflow will deploy build to Github Pages.
 
-name: React CI
+name: React CI/CD
 
 on:
   push:
@@ -39,3 +40,19 @@ jobs:
 
 #      - name: Build
 #        run: yarn build
+
+  deploy:
+    - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy to Github Pages
+        run: |
+          git config --global user.name $user_name
+          git config --global user.email $user_email
+          git remote set-url origin https://${github_token}@github.com/${repository}
+          npm run deploy
+        env:
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
