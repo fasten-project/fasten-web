@@ -45,6 +45,19 @@ jobs:
     needs: test
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: yarn install
+
       - name: Deploy to Github Pages
         run: |
           git config --global user.name $user_name
