@@ -1,5 +1,5 @@
 import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
 import { getCallables, getModules } from "../../requests/services/package";
@@ -124,25 +124,36 @@ class InternalPackageTable extends React.Component<
    * Renders the package module entity.
    * @param entity is {@link Module} to render.
    */
-  renderModuleRow(entity: Module): React.ReactNode {
+  renderModuleRow = (entity: Module): React.ReactNode => {
+    const { pkg, pkgVersion } = this.props;
     return (
       <StyledVersionRow key={`module_${entity.id}`}>
-        <a href={""}>{entity.namespace}</a>
+        <Link to={`/packages/${pkg}/${pkgVersion}/${entity.namespace}`}>
+          {entity.namespace}
+        </Link>
       </StyledVersionRow>
     );
-  }
+  };
 
   /**
    * Renders the package callable entity.
    * @param entity is {@link Callable} to render.
+   *
+   * TODO: Replace `default` module with actual module of the callable.
+   *       The problem: callable instance contains only id of module, not namespace.
    */
-  renderCallableRow(entity: Callable): React.ReactNode {
+  renderCallableRow = (entity: Callable): React.ReactNode => {
+    const { pkg, pkgVersion } = this.props;
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
-        <a href={""}>{entity.fasten_uri}</a>
+        <Link
+          to={`/packages/${pkg}/${pkgVersion}/default/${entity.fasten_uri}`}
+        >
+          {entity.fasten_uri}
+        </Link>
       </StyledVersionRow>
     );
-  }
+  };
 
   renderRows(): React.ReactNode {
     switch (this.state.data?.kind) {
@@ -157,7 +168,7 @@ class InternalPackageTable extends React.Component<
 
   render() {
     if (this.state.isLoading) {
-      return <h1>Loading...</h1>;
+      return <></>;
     }
 
     return (

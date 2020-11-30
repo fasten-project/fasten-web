@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
@@ -21,8 +21,17 @@ import { PackageTable } from "../../components/PackageTable";
  * Props for the Package route.
  */
 export interface PackageProps {
-  /** The package name retrieved passed through URL route param. */
+  /** The package name passed through URL route param. */
   pkgParam: string;
+
+  /** The version of the package passed through URL route param. */
+  verParam: string;
+
+  /** The module name of the package passed through URL route param. */
+  moduleParam: string;
+
+  /** The callable (FASTEN URI) of the package passed through URL route param. */
+  callableParam: string;
 }
 
 /**
@@ -71,13 +80,15 @@ class InternalPackage extends React.Component<
       tabs: [
         {
           label: "Modules",
-          body: () => (
-            <PackageTable
-              kind={"MODULES"}
-              pkg={this.state.pkg[0].package_name}
-              pkgVersion={this.state.pkg[0].version}
-            />
-          ),
+          body: () => {
+            return (
+              <PackageTable
+                kind={"MODULES"}
+                pkg={this.state.pkg[0].package_name}
+                pkgVersion={this.state.pkg[0].version}
+              />
+            );
+          },
         },
         {
           label: "Callables",
@@ -144,9 +155,18 @@ class InternalPackage extends React.Component<
 
   render() {
     const { pkg } = this.state;
+    const { verParam, moduleParam, callableParam } = this.props.match.params;
 
+    // Display placeholder while Package instance is loading from API.
     if (this.state.isLoading) {
       return <h1>Loading...</h1>;
+    }
+
+    // Redirect to the latest version by default.
+    if (verParam == undefined) {
+      return (
+        <Redirect to={`/packages/${pkg[0].package_name}/${pkg[0].version}`} />
+      );
     }
 
     // The body of the page is defined by currently active tab.
@@ -166,6 +186,8 @@ class InternalPackage extends React.Component<
                 <GoRepo />
               </StyleRepoLink>
             )}
+            {moduleParam && ` / ${moduleParam}`}
+            {callableParam && ` / ${callableParam}`}
           </StyledTitle>
           {pkg[0].created_at && (
             <StyledDateCreated>

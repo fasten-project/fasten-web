@@ -27,7 +27,7 @@ class InternalApp extends React.Component<AppProps, AppState> {
           <Route exact path="/home" key={location.key} component={Home} />
           <Route
             exact
-            path="/packages/:pkgParam"
+            path="/packages/:pkgParam/:verParam?/:moduleParam?/:callableParam?"
             key={location.key}
             component={Package}
           />
