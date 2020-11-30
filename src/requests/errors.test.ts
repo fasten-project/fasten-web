@@ -3,7 +3,7 @@ import {
   getAPIResponseError,
   INTERNET_ERROR,
   UNKNOWN_ERROR,
-} from "/requests/errors";
+} from "./errors";
 
 describe("Error parser function", () => {
   const msg = "Abstract error response message";
@@ -13,7 +13,7 @@ describe("Error parser function", () => {
     // Error without response attribute
     const error = getAPIResponseError(new Error(dev));
 
-    expect(error).toBeInstanceOf(APIResponseError);
+    expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe(INTERNET_ERROR);
     expect(error.debug).toContain(dev);
   });
@@ -25,7 +25,7 @@ describe("Error parser function", () => {
       message: dev,
     });
 
-    expect(error).toBeInstanceOf(APIResponseError);
+    expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe(UNKNOWN_ERROR);
     expect(error.debug).toContain(dev);
   });
@@ -37,7 +37,7 @@ describe("Error parser function", () => {
       message: dev,
     });
 
-    expect(error).toBeInstanceOf(APIResponseError);
+    expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe(msg);
     expect(error.debug).toContain(dev);
   });
