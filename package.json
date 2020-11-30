@@ -57,7 +57,7 @@
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
     "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "build": "yarn parcel build --no-autoinstall public/index.html",
-    "deploy": "gh-pages -b main -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": "react-app"
