@@ -1,0 +1,50 @@
+# Basic workflow for the react application.
+# This workflow will do a clean install and cache of dependencies, build the source code and run tests.
+
+name: React CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Compile
+        run: npm run try-compile
+
+      - name: Run Tests
+        run: npm run test-with-cov
+
+      - name: Run Linter Analysis
+        run: npm run lint
+
+#      - name: Build
+#        run: npm run build
