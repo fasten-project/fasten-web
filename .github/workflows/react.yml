@@ -42,7 +42,8 @@ jobs:
 #        run: yarn build
 
   deploy:
-    - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
 
     steps:
       - name: Deploy to Github Pages
