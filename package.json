@@ -1,7 +1,7 @@
 {
   "name": "fasten-web",
   "version": "0.1.0",
-  "homepage": "https://fasten-project.github.io/web",
+  "homepage": "https://fasten-project.github.io/fasten-web/",
   "repository": {
     "type": "git",
     "url": "http://github.com/fasten-project/fasten-web"
@@ -57,7 +57,7 @@
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
     "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "build": "yarn parcel build --no-autoinstall public/index.html",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -b main -d dist"
   },
   "eslintConfig": {
     "extends": "react-app"
