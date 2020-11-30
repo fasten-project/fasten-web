@@ -164,9 +164,7 @@ class InternalPackage extends React.Component<
 
     // Redirect to the latest version by default.
     if (verParam == undefined) {
-      return (
-        <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />
-      );
+      return <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />;
     }
 
     // The body of the page is defined by currently active tab.

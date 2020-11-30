@@ -23,7 +23,7 @@ export const StyledSubtitle = styled.p({
       filter: "brightness(85%)",
     },
   },
-})
+});
 
 /**
  * Text Field element

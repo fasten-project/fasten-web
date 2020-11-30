@@ -1,5 +1,5 @@
 import * as React from "react";
-import LogoImage from "../../../public/fasten_logo.svg";
+import LogoImage from "../../assets/fasten_logo.svg";
 import {
   StyledContainer,
   StyledNavLeft,

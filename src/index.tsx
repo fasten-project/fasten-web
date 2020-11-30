@@ -8,7 +8,7 @@ import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter basename="/fasten-web/">
+    <HashRouter basename={"/"}>
       <App />
     </HashRouter>
   </React.StrictMode>,
