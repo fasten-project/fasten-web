@@ -32,11 +32,11 @@ jobs:
       - name: Compile
         run: yarn try-compile
 
-      - name: Run Tests
-        run: yarn test-with-cov
-
       - name: Run Linter Analysis
         run: yarn lint
+
+      - name: Run Tests
+        run: yarn test-with-cov
 
 
   deploy:

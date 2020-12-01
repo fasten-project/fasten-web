@@ -54,7 +54,8 @@
     "try-compile": "yarn tsc --noEmit",
     "test": "yarn jest --passWithNoTests",
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
-    "lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "fix-lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "yarn eslint '*/**/*.{js,ts,tsx}'",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build"
   },
