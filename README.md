@@ -39,10 +39,17 @@ $ git clone https://github.com/fasten-project/fasten-web.git
 
 ### Run
 
-1) Run `yarn` to install all necessary dependencies;
-1) Run `yarn start` to run the application locally;
-1) Open [`localhost:1234`](http://localhost:1234) in your browser to use the platform.
+1) Run `yarn` to install all necessary dependencies
+1) Run `yarn start` to run the application locally
+1) The application will be automatically opened in the browser
+    1) If it hasn't, access it at [`localhost:1234`](http://localhost:1234).
 
+### Deployment
+
+The application uses [Github Actions](https://github.com/fasten-project/fasten-web/actions) in order to automatically deploy the build to [Github Pages](https://pages.github.com). It happens on every merge to `main` branch. 
+The build is available on `gh-pages` branch. 
+
+Homepage: https://fasten-project.github.io/fasten-web/.
 
 ## Built With
 - [React](http://reactjs.org) - library for user interfaces
