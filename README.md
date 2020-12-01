@@ -4,9 +4,9 @@
 <br/>
 <p align="center">
     <a href="https://github.com/fasten-project/fasten-web/actions" alt="GitHub Workflow Status">
-        <img src="https://img.shields.io/github/workflow/status/fasten-project/fasten-web/React%20CI/CD?logo=GitHub%20Actions&logoColor=white&style=for-the-badge" /></a>
-    <a href="https://github.com/fasten-project/fasten-web/releases" alt="GitHub Workflow Status">
-                <img src="https://img.shields.io/github/v/release/fasten-project/fasten-web?logo=GitHub&style=for-the-badge" /></a>
+        <img src="https://img.shields.io/github/workflow/status/fasten-project/fasten-web/React%20CI?logo=GitHub%20Actions&logoColor=white&style=for-the-badge" /></a>
+    <a href="https://fasten-project.github.io/fasten-web/" alt="FASTEN Project Web">
+        <img alt="Website" src="https://img.shields.io/website?down_message=Offline&style=for-the-badge&up_message=Online&url=https%3A%2F%2Ffasten-project.github.io%2Ffasten-web%2F"></a>
     <a href="https://github.com/fasten-project/fasten-web/" alt="Gitter">
             <img src="https://img.shields.io/gitter/room/fasten-project/fasten-web?style=for-the-badge&logo=gitter" /></a>
 </p>
@@ -14,6 +14,7 @@
 
 [The FASTEN project](https://github.com/fasten-project/fasten) is an intelligent software package management systems that enhance robustness and security in software ecosystems. This frontend project helps to fully utilise these systems and visualises all the valuable data that is provided. This web platform can be used by the end developers in order to get fine grained data about the vurnalabilities that one uses in a visual and clear way.
 
+Homepage: https://fasten-project.github.io/fasten-web/
 
 ## Getting Started
 
@@ -48,8 +49,6 @@ $ git clone https://github.com/fasten-project/fasten-web.git
 
 The application uses [Github Actions](https://github.com/fasten-project/fasten-web/actions) in order to automatically deploy the build to [Github Pages](https://pages.github.com). It happens on every merge to `main` branch. 
 The build is available on `gh-pages` branch. 
-
-Homepage: https://fasten-project.github.io/fasten-web/.
 
 ## Built With
 - [React](http://reactjs.org) - library for user interfaces
