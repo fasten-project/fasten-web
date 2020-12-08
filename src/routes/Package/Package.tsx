@@ -4,8 +4,6 @@ import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
   StyledDateCreated,
-  StyledTabMenu,
-  StyledTabMenuItem,
   StyledTitle,
   StyleRepoLink,
 } from "./Package.styled";
@@ -15,6 +13,7 @@ import {
   Package as PackageModel,
 } from "../../requests/payloads/package-payload";
 import { getPackage } from "../../requests/services/package";
+import { Tab, TabMenu } from "../../components/TabMenu";
 import { PackageTable } from "../../components/PackageTable";
 
 /**
@@ -43,23 +42,6 @@ export interface PackageState {
 
   /** The loaded Package instance from API. */
   pkg: PackageModel;
-
-  /** Index of the currently selected tab. */
-  tabIndex: number;
-
-  /** The list of available tabs on the page. */
-  tabs: Array<Tab>;
-}
-
-/**
- * The data interface for the Tab element.
- */
-interface Tab {
-  /** The label to display for this tab. */
-  label: string;
-
-  /** The content component of this tab. */
-  body: React.FunctionComponent;
 }
 
 /**
@@ -76,31 +58,6 @@ class InternalPackage extends React.Component<
     this.state = {
       isLoading: true,
       pkg: defaultPackage,
-      tabIndex: 0,
-      tabs: [
-        {
-          label: "Modules",
-          body: () => {
-            return (
-              <PackageTable
-                kind={"MODULES"}
-                pkg={this.state.pkg.package_name}
-                pkgVersion={this.state.pkg.version}
-              />
-            );
-          },
-        },
-        {
-          label: "Callables",
-          body: () => (
-            <PackageTable
-              kind={"CALLABLES"}
-              pkg={this.state.pkg.package_name}
-              pkgVersion={this.state.pkg.version}
-            />
-          ),
-        },
-      ],
     };
   }
 
@@ -126,32 +83,13 @@ class InternalPackage extends React.Component<
         pkg: pkga,
       });
     } catch (error) {
-      // 404?
+      // TODO: 404?
       console.log("Bad error");
       this.setState({
         isLoading: false,
       });
     }
   }
-
-  /**
-   * The component builder for the tab menu element.
-   * @param props - the tab properties defined by {number} index and {string} label.
-   */
-  TabMenuItem: React.FunctionComponent<{ index: number; label: string }> = (
-    props
-  ) => (
-    <StyledTabMenuItem
-      selected={this.state.tabIndex == props.index}
-      onClick={() =>
-        this.setState({
-          tabIndex: props.index,
-        })
-      }
-    >
-      {props.label}
-    </StyledTabMenuItem>
-  );
 
   render() {
     const { pkg } = this.state;
@@ -167,11 +105,30 @@ class InternalPackage extends React.Component<
       return <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />;
     }
 
-    // The body of the page is defined by currently active tab.
-    const TabBody =
-      this.state.tabs.length > this.state.tabIndex
-        ? this.state.tabs[this.state.tabIndex].body
-        : null;
+    const tabs: Tab[] = [
+      {
+        label: "Modules",
+        body: () => {
+          return (
+            <PackageTable
+              kind={"MODULES"}
+              pkg={this.state.pkg.package_name}
+              pkgVersion={this.state.pkg.version}
+            />
+          );
+        },
+      },
+      {
+        label: "Callables",
+        body: () => (
+          <PackageTable
+            kind={"CALLABLES"}
+            pkg={this.state.pkg.package_name}
+            pkgVersion={this.state.pkg.version}
+          />
+        ),
+      },
+    ];
 
     return (
       <>
@@ -192,16 +149,7 @@ class InternalPackage extends React.Component<
               Created {pkg.created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
-          <StyledTabMenu>
-            {this.state.tabs.map((tab: Tab, index: number) => (
-              <this.TabMenuItem
-                key={`tab_${index}`}
-                index={index}
-                label={tab.label}
-              />
-            ))}
-          </StyledTabMenu>
-          {TabBody && <TabBody />}
+          <TabMenu tabs={tabs} />
         </StyledContainer>
       </>
     );
