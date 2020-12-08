@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { array } from "yup";
+import { VULNERABILITIES_PAYLOAD_RESPONSE } from "./metadata-vulnerabilities-payload";
 
 /**
  * Validation schema for {@link Callable}.
@@ -29,7 +30,12 @@ export const PACKAGE_CALLABLE_SCHEMA = yup
     created_at: yup.date().max(new Date(Date.now())).nullable(),
 
     /** Additional metadata available for the callable. */
-    metadata: yup.object().nullable(),
+    metadata: yup
+      .object()
+      .shape({
+        vulnerabilities: VULNERABILITIES_PAYLOAD_RESPONSE,
+      })
+      .nullable(),
   })
   .required();
 
