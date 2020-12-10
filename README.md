@@ -5,8 +5,8 @@
 <p align="center">
     <a href="https://github.com/fasten-project/fasten-web/actions" alt="GitHub Workflow Status">
         <img src="https://img.shields.io/github/workflow/status/fasten-project/fasten-web/React%20CI?logo=GitHub%20Actions&logoColor=white&style=for-the-badge" /></a>
-    <a href="https://fasten-project.github.io/fasten-web/" alt="FASTEN Project Web">
-        <img alt="Website" src="https://img.shields.io/website?down_message=Offline&style=for-the-badge&up_message=Online&url=https%3A%2F%2Ffasten-project.github.io%2Ffasten-web%2F"></a>
+    <a href="https://demo.fasten-project.eu/" alt="FASTEN Project Web">
+        <img alt="Website" src="https://img.shields.io/website?down_message=Offline&style=for-the-badge&up_message=Online&url=https%3A%2F%2Fdemo.fasten-project.eu"></a>
     <a href="https://github.com/fasten-project/fasten-web/" alt="Gitter">
             <img src="https://img.shields.io/gitter/room/fasten-project/fasten-web?style=for-the-badge&logo=gitter" /></a>
 </p>
