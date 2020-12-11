@@ -14,7 +14,7 @@
 
 [The FASTEN project](https://github.com/fasten-project/fasten) is an intelligent software package management systems that enhance robustness and security in software ecosystems. This frontend project helps to fully utilise these systems and visualises all the valuable data that is provided. This web platform can be used by the end developers in order to get fine grained data about the vurnalabilities that one uses in a visual and clear way.
 
-Homepage: https://fasten-project.github.io/fasten-web/
+Homepage: [demo.fasten-project.eu](https://demo.fasten-project.eu/)
 
 ## Getting Started
 
