@@ -9,13 +9,21 @@ import {
 
 import { StyledAppContainer } from "./App.styled";
 import { Home } from "./routes/Home";
-import { Package } from "./routes/Package";
+import { Package, PackageProps, PackageState } from "./routes/Package";
 
 export type AppProps = RouteComponentProps & {};
 
 export interface AppState {}
 
 class InternalApp extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps, state: AppState) {
+    super(props, state);
+    const url = window.location.origin;
+    if (url.includes("https")) {
+      window.location.href = `http:${url.split(":")[1]}`;
+    }
+  }
+
   render() {
     const location = this.props.location;
 
