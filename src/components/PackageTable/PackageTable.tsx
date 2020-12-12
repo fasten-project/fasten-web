@@ -139,16 +139,14 @@ class InternalPackageTable extends React.Component<
    * Renders the package callable entity.
    * @param entity is {@link Callable} to render.
    *
-   * TODO: Replace `default` module with actual module of the callable.
+   * TODO: Replace `...` module with actual module of the callable.
    *       The problem: callable instance contains only id of module, not namespace.
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
     const { pkg, pkgVersion } = this.props;
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
-        <Link
-          to={`/packages/${pkg}/${pkgVersion}/default/${entity.fasten_uri}`}
-        >
+        <Link to={`/packages/${pkg}/${pkgVersion}/.../${entity.fasten_uri}`}>
           {entity.fasten_uri}
         </Link>
       </StyledVersionRow>
