@@ -9,7 +9,7 @@ import {
 
 import { StyledAppContainer } from "./App.styled";
 import { Home } from "./routes/Home";
-import { Package, PackageProps, PackageState } from "./routes/Package";
+import { Package } from "./routes/Package";
 
 export type AppProps = RouteComponentProps & {};
 
