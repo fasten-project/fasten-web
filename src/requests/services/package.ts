@@ -7,22 +7,23 @@ import { isValidCallablesResponsePayload } from "../payloads/package-callable-pa
 
 /**
  * GET Endpoint for retrieving the package entity.
- * Requires additional parameters: `/mvn/packages/{name}`.
+ * Requires additional parameters: `/api/mvn/packages/{name}`.
  */
-export const PACKAGE_ENDPOINT = "/mvn/packages/{0}";
+export const PACKAGE_ENDPOINT = "api.fasten-project.eu/api/mvn/packages/{0}";
 
 /**
  * GET Endpoint for retrieving the package modules.
- * Requires additional parameters: `/mvn/packages/{name}/{version}/modules`.
+ * Requires additional parameters: `/api/mvn/packages/{name}/{version}/modules`.
  */
-export const PACKAGE_MODULES_ENDPOINT = "/mvn/packages/{0}/{1}/modules";
+export const PACKAGE_MODULES_ENDPOINT =
+  "api.fasten-project.eu/api/mvn/packages/{0}/{1}/modules";
 
 /**
  * POST Endpoint for retrieving the package callables.
- * Requires additional parameters: `/mvn/packages/{name}/{version}/modules/callables`.
+ * Requires additional parameters: `/api/mvn/packages/{name}/{version}/modules/callables`.
  */
 export const PACKAGE_CALLABLES_ENDPOINT =
-  "/mvn/packages/{0}/{1}/modules/callables";
+  "api.fasten-project.eu/api/mvn/packages/{0}/{1}/modules/callables";
 
 /**
  * The request for retrieving the package entity.
