@@ -11,6 +11,8 @@ export interface CallableState {}
 
 /**
  * The component that renders the content related to the Callable level of abstraction.
+ *
+ * TODO: finish #24 and inset the vulnerabilities table here.
  */
 class InternalCallable extends React.Component<CallableProps, CallableState> {
   render() {

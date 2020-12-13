@@ -88,7 +88,7 @@ class InternalPackage extends React.Component<
         pkg: pkga,
       });
     } catch (error) {
-      // TODO: display error.
+      // TODO: display error?
       console.log(error.toString());
       this.setState({
         isLoading: false,

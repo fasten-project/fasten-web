@@ -5,6 +5,11 @@ import { isValidPackageResponsePayload } from "../payloads/package-payload";
 import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
 
+// TODO: At the moment, there is a workaround for the issue related to the mixed security config,
+//       because Rest API doesn't support HTTPS. For solving it, the api requests
+//       go through the middle-man system that support HTTPS. Thus, in the endpoints here,
+//       there is a suffix for the base url to API. In `config.tsx` there is a middle-man url.
+
 /**
  * GET Endpoint for retrieving the package entity.
  * Requires additional parameters: `/api/mvn/packages/{name}`.

@@ -8,6 +8,8 @@ import { getModuleCallables } from "../../requests/services/package";
 export interface ModuleProps extends RouteComponentProps {
   /** The package that needs to be taken. */
   pkg: PackageModel;
+
+  /** The namespace of the module in focus. */
   namespace: string;
 }
 
@@ -15,9 +17,7 @@ export interface ModuleState {}
 
 /**
  * The component that renders the content related to the Module level of abstraction.
- * TODO: (1) Display callables only for this specific Module. Currently there is no endpoint for this purpose.
- *           See: https://github.com/fasten-project/fasten/issues/166
- *       (2) Allow other versions of the package to be chosen (not only default as now).
+ * TODO: allow other versions of the package to be chosen (not only default as now).
  */
 class InternalModule extends React.Component<ModuleProps, ModuleState> {
   render() {

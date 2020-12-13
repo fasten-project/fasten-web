@@ -33,7 +33,7 @@ export interface PackageTableProps extends RouteComponentProps {
   /** The package version for which table is rendered. */
   pkgVersion: string;
 
-  /** The module's namespace if present. */
+  /** The module's namespace if present (optional). */
   namespace?: string;
 
   /** The method that fetches the table's entities from API. */
