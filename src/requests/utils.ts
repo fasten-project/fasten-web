@@ -37,11 +37,11 @@ export async function sendRequest<RequestT, ResponseT>(
       );
     }
   } catch (error) {
+    console.log(error.toString());
     // If the error is already APIResponseError, we don't need to dive into it
     if (error instanceof APIResponseError) {
       throw error;
     } else {
-      console.log(error.debug);
       throw getAPIResponseError(error);
     }
   }

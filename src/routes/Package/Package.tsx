@@ -1,20 +1,25 @@
 import * as React from "react";
-import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  RouteComponentProps,
+  withRouter,
+} from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
   StyledDateCreated,
   StyledTitle,
-  StyleRepoLink,
 } from "./Package.styled";
-import { GoRepo } from "react-icons/go";
 import {
   defaultPackage,
   Package as PackageModel,
 } from "../../requests/payloads/package-payload";
 import { getPackage } from "../../requests/services/package";
-import { Tab, TabMenu } from "../../components/TabMenu";
-import { PackageTable } from "../../components/PackageTable";
+import { Package as PackagePage } from "../../components/Package";
+import { Module } from "../../components/Module";
+import { Callable } from "../../components/Callable";
+import { defaultCallable } from "../../requests/payloads/package-callable-payload";
 
 /**
  * Props for the Package route.
@@ -83,11 +88,22 @@ class InternalPackage extends React.Component<
         pkg: pkga,
       });
     } catch (error) {
-      // TODO: 404?
-      console.log("Bad error");
+      // TODO: display error.
+      console.log(error.toString());
       this.setState({
         isLoading: false,
       });
+    }
+  }
+
+  renderAbstractionContent() {
+    const { moduleParam, callableParam } = this.props.match.params;
+    if (callableParam) {
+      return <Callable callable={defaultCallable} />;
+    } else if (moduleParam) {
+      return <Module pkg={this.state.pkg} namespace={moduleParam} />;
+    } else {
+      return <PackagePage pkg={this.state.pkg} />;
     }
   }
 
@@ -100,47 +116,23 @@ class InternalPackage extends React.Component<
       return <h1>Loading...</h1>;
     }
 
+    if (pkg.id == 0) {
+      return <Redirect to={"/"} />;
+    }
+
     // Redirect to the latest version by default.
     if (verParam == undefined) {
       return <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />;
     }
-
-    const tabs: Tab[] = [
-      {
-        label: "Modules",
-        body: () => {
-          return (
-            <PackageTable
-              kind={"MODULES"}
-              pkg={this.state.pkg.package_name}
-              pkgVersion={this.state.pkg.version}
-            />
-          );
-        },
-      },
-      {
-        label: "Callables",
-        body: () => (
-          <PackageTable
-            kind={"CALLABLES"}
-            pkg={this.state.pkg.package_name}
-            pkgVersion={this.state.pkg.version}
-          />
-        ),
-      },
-    ];
 
     return (
       <>
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            {pkg.project_name} {pkg.version}
-            {pkg.repository && (
-              <StyleRepoLink href={pkg.repository}>
-                <GoRepo />
-              </StyleRepoLink>
-            )}
+            <Link to={`/packages/${pkg.package_name}/${pkg.version}`}>
+              {pkg.project_name} {pkg.version}
+            </Link>
             {moduleParam && ` / ${moduleParam}`}
             {callableParam && ` / ${callableParam}`}
           </StyledTitle>
@@ -149,7 +141,12 @@ class InternalPackage extends React.Component<
               Created {pkg.created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
-          <TabMenu tabs={tabs} />
+          {/*{pkg.repository && (*/}
+          {/*  <StyleRepoLink href={pkg.repository}>*/}
+          {/*    <GoRepo />*/}
+          {/*  </StyleRepoLink>*/}
+          {/*)}*/}
+          {this.renderAbstractionContent()}
         </StyledContainer>
       </>
     );

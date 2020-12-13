@@ -2,7 +2,6 @@ import * as React from "react";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
-import { getCallables, getModules } from "../../requests/services/package";
 import { Callable } from "../../requests/payloads/package-callable-payload";
 
 type ModulesTableData = {
@@ -33,6 +32,12 @@ export interface PackageTableProps extends RouteComponentProps {
 
   /** The package version for which table is rendered. */
   pkgVersion: string;
+
+  /** The module's namespace if present. */
+  namespace?: string;
+
+  /** The method that fetches the table's entities from API. */
+  fetchEntities: any;
 }
 
 /**
@@ -72,27 +77,11 @@ class InternalPackageTable extends React.Component<
       isLoading: true,
     });
 
-    const { pkg, pkgVersion } = this.props;
-
     try {
-      let dt: TableData = undefined;
-
-      switch (this.props.kind) {
-        case "MODULES":
-          dt = {
-            kind: "MODULES",
-            entities: await getModules(pkg, pkgVersion),
-          };
-          break;
-        case "CALLABLES":
-          dt = {
-            kind: "CALLABLES",
-            entities: await getCallables(pkg, pkgVersion),
-          };
-          break;
-        default:
-          return;
-      }
+      const dt: TableData = {
+        kind: this.props.kind,
+        entities: await this.props.fetchEntities(),
+      };
 
       this.setState({
         isLoading: false,
@@ -138,16 +127,13 @@ class InternalPackageTable extends React.Component<
   /**
    * Renders the package callable entity.
    * @param entity is {@link Callable} to render.
-   *
-   * TODO: Replace `default` module with actual module of the callable.
-   *       The problem: callable instance contains only id of module, not namespace.
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
-    const { pkg, pkgVersion } = this.props;
+    const { pkg, pkgVersion, namespace } = this.props;
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
         <Link
-          to={`/packages/${pkg}/${pkgVersion}/default/${entity.fasten_uri}`}
+          to={`/packages/${pkg}/${pkgVersion}/${namespace}/${entity.fasten_uri}`}
         >
           {entity.fasten_uri}
         </Link>
