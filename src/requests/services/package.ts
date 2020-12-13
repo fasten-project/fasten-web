@@ -6,22 +6,23 @@ import { isValidModulesResponsePayload } from "../payloads/package-module-payloa
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
 
 /**
- * Endpoint for retrieving the package entity.
+ * GET Endpoint for retrieving the package entity.
  * Requires additional parameters: `/mvn/packages/{name}`.
  */
 export const PACKAGE_ENDPOINT = "/mvn/packages/{0}";
 
 /**
- * Endpoint for retrieving the package modules.
+ * GET Endpoint for retrieving the package modules.
  * Requires additional parameters: `/mvn/packages/{name}/{version}/modules`.
  */
 export const PACKAGE_MODULES_ENDPOINT = "/mvn/packages/{0}/{1}/modules";
 
 /**
- * Endpoint for retrieving the package callables.
- * Requires additional parameters: `/mvn/packages/{name}/{version}/callables`.
+ * POST Endpoint for retrieving the package callables.
+ * Requires additional parameters: `/mvn/packages/{name}/{version}/modules/callables`.
  */
-export const PACKAGE_CALLABLES_ENDPOINT = "/mvn/packages/{0}/{1}/callables";
+export const PACKAGE_CALLABLES_ENDPOINT =
+  "/mvn/packages/{0}/{1}/modules/callables";
 
 /**
  * The request for retrieving the package entity.
@@ -53,16 +54,24 @@ export function getModules(pkg: string, ver: string) {
 }
 
 /**
- * The request for retrieving the package callables.
+ * The request for retrieving callables for the specific module in the package.
  * @param {string} pkg - the name of the package.
  * @param {string} ver - the version of the package.
+ * @param {string} namespace - the module's namespace in the package.
  */
-export function getCallables(pkg: string, ver: string) {
+export function getModuleCallables(
+  pkg: string,
+  ver: string,
+  namespace: string
+) {
   return sendRequest(
-    "get",
+    "post",
     String.Format(PACKAGE_CALLABLES_ENDPOINT, pkg, ver),
     config.api,
     isValidCallablesResponsePayload,
-    {}
+    {},
+    {
+      namespace: namespace,
+    }
   );
 }
