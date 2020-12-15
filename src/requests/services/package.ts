@@ -75,9 +75,11 @@ export function getModuleCallables(
     String.Format(PACKAGE_CALLABLES_ENDPOINT, pkg, ver),
     config.api,
     isValidCallablesResponsePayload,
-    {},
     {
-      module_namespace: namespace,
-    }
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    },
+    namespace
   );
 }
