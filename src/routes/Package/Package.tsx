@@ -1,21 +1,25 @@
 import * as React from "react";
-import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  RouteComponentProps,
+  withRouter,
+} from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
   StyledDateCreated,
-  StyledTabMenu,
-  StyledTabMenuItem,
   StyledTitle,
-  StyleRepoLink,
 } from "./Package.styled";
-import { GoRepo } from "react-icons/go";
 import {
   defaultPackage,
   Package as PackageModel,
 } from "../../requests/payloads/package-payload";
 import { getPackage } from "../../requests/services/package";
-import { PackageTable } from "../../components/PackageTable";
+import { Package as PackagePage } from "../../components/Package";
+import { Module } from "../../components/Module";
+import { Callable } from "../../components/Callable";
+import { defaultCallable } from "../../requests/payloads/package-callable-payload";
 
 /**
  * Props for the Package route.
@@ -43,23 +47,6 @@ export interface PackageState {
 
   /** The loaded Package instance from API. */
   pkg: PackageModel;
-
-  /** Index of the currently selected tab. */
-  tabIndex: number;
-
-  /** The list of available tabs on the page. */
-  tabs: Array<Tab>;
-}
-
-/**
- * The data interface for the Tab element.
- */
-interface Tab {
-  /** The label to display for this tab. */
-  label: string;
-
-  /** The content component of this tab. */
-  body: React.FunctionComponent;
 }
 
 /**
@@ -76,31 +63,6 @@ class InternalPackage extends React.Component<
     this.state = {
       isLoading: true,
       pkg: defaultPackage,
-      tabIndex: 0,
-      tabs: [
-        {
-          label: "Modules",
-          body: () => {
-            return (
-              <PackageTable
-                kind={"MODULES"}
-                pkg={this.state.pkg.package_name}
-                pkgVersion={this.state.pkg.version}
-              />
-            );
-          },
-        },
-        {
-          label: "Callables",
-          body: () => (
-            <PackageTable
-              kind={"CALLABLES"}
-              pkg={this.state.pkg.package_name}
-              pkgVersion={this.state.pkg.version}
-            />
-          ),
-        },
-      ],
     };
   }
 
@@ -126,40 +88,50 @@ class InternalPackage extends React.Component<
         pkg: pkga,
       });
     } catch (error) {
-      // 404?
-      console.log("Bad error");
+      // TODO: display error?
+      console.log(error.toString());
       this.setState({
         isLoading: false,
       });
     }
   }
 
-  /**
-   * The component builder for the tab menu element.
-   * @param props - the tab properties defined by {number} index and {string} label.
-   */
-  TabMenuItem: React.FunctionComponent<{ index: number; label: string }> = (
-    props
-  ) => (
-    <StyledTabMenuItem
-      selected={this.state.tabIndex == props.index}
-      onClick={() =>
-        this.setState({
-          tabIndex: props.index,
-        })
-      }
-    >
-      {props.label}
-    </StyledTabMenuItem>
-  );
+  renderAbstractionContent() {
+    const { moduleParam, callableParam } = this.props.match.params;
+    const namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
+
+    if (callableParam) {
+      return <Callable callable={defaultCallable} />;
+    } else if (namespace) {
+      return <Module pkg={this.state.pkg} namespace={namespace} />;
+    } else {
+      return <PackagePage pkg={this.state.pkg} />;
+    }
+  }
 
   render() {
     const { pkg } = this.state;
     const { verParam, moduleParam, callableParam } = this.props.match.params;
 
+    let namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
+    let fasten_uri = callableParam ? decodeURIComponent(callableParam) : null;
+
+    // Remove leading slash for better look in breadcrumbs.
+    if (namespace && namespace.charAt(0) == "/") {
+      namespace = namespace.substring(1);
+    }
+    if (fasten_uri && fasten_uri.charAt(0) == "/") {
+      fasten_uri = fasten_uri.substring(1);
+    }
+
     // Display placeholder while Package instance is loading from API.
     if (this.state.isLoading) {
       return <h1>Loading...</h1>;
+    }
+
+    // Return to homepage if package wasn't found.
+    if (pkg.id == 0) {
+      return <Redirect to={"/"} />;
     }
 
     // Redirect to the latest version by default.
@@ -167,41 +139,46 @@ class InternalPackage extends React.Component<
       return <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />;
     }
 
-    // The body of the page is defined by currently active tab.
-    const TabBody =
-      this.state.tabs.length > this.state.tabIndex
-        ? this.state.tabs[this.state.tabIndex].body
-        : null;
-
     return (
       <>
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            {pkg.project_name} {pkg.version}
-            {pkg.repository && (
-              <StyleRepoLink href={pkg.repository}>
-                <GoRepo />
-              </StyleRepoLink>
+            <Link to={`/packages/${pkg.package_name}/${pkg.version}`}>
+              {pkg.project_name} {pkg.version}
+            </Link>
+            {namespace && (
+              <>
+                <span> / </span>
+                <Link
+                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}`}
+                >
+                  {namespace}
+                </Link>
+              </>
             )}
-            {moduleParam && ` / ${moduleParam}`}
-            {callableParam && ` / ${callableParam}`}
+            {fasten_uri && (
+              <>
+                <span> / </span>
+                <Link
+                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}/${callableParam}`}
+                >
+                  {fasten_uri}
+                </Link>
+              </>
+            )}
           </StyledTitle>
           {pkg.created_at && (
             <StyledDateCreated>
               Created {pkg.created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
-          <StyledTabMenu>
-            {this.state.tabs.map((tab: Tab, index: number) => (
-              <this.TabMenuItem
-                key={`tab_${index}`}
-                index={index}
-                label={tab.label}
-              />
-            ))}
-          </StyledTabMenu>
-          {TabBody && <TabBody />}
+          {/*{pkg.repository && (*/}
+          {/*  <StyleRepoLink href={pkg.repository}>*/}
+          {/*    <GoRepo />*/}
+          {/*  </StyleRepoLink>*/}
+          {/*)}*/}
+          {this.renderAbstractionContent()}
         </StyledContainer>
       </>
     );
