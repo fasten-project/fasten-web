@@ -98,10 +98,12 @@ class InternalPackage extends React.Component<
 
   renderAbstractionContent() {
     const { moduleParam, callableParam } = this.props.match.params;
+    const namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
+
     if (callableParam) {
       return <Callable callable={defaultCallable} />;
-    } else if (moduleParam) {
-      return <Module pkg={this.state.pkg} namespace={moduleParam} />;
+    } else if (namespace) {
+      return <Module pkg={this.state.pkg} namespace={namespace} />;
     } else {
       return <PackagePage pkg={this.state.pkg} />;
     }
@@ -111,11 +113,23 @@ class InternalPackage extends React.Component<
     const { pkg } = this.state;
     const { verParam, moduleParam, callableParam } = this.props.match.params;
 
+    let namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
+    let fasten_uri = callableParam ? decodeURIComponent(callableParam) : null;
+
+    // Remove leading slash for better look in breadcrumbs.
+    if (namespace && namespace.charAt(0) == "/") {
+      namespace = namespace.substring(1);
+    }
+    if (fasten_uri && fasten_uri.charAt(0) == "/") {
+      fasten_uri = fasten_uri.substring(1);
+    }
+
     // Display placeholder while Package instance is loading from API.
     if (this.state.isLoading) {
       return <h1>Loading...</h1>;
     }
 
+    // Return to homepage if package wasn't found.
     if (pkg.id == 0) {
       return <Redirect to={"/"} />;
     }
@@ -133,8 +147,26 @@ class InternalPackage extends React.Component<
             <Link to={`/packages/${pkg.package_name}/${pkg.version}`}>
               {pkg.project_name} {pkg.version}
             </Link>
-            {moduleParam && ` / ${moduleParam}`}
-            {callableParam && ` / ${callableParam}`}
+            {namespace && (
+              <>
+                <span> / </span>
+                <Link
+                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}`}
+                >
+                  {namespace}
+                </Link>
+              </>
+            )}
+            {fasten_uri && (
+              <>
+                <span> / </span>
+                <Link
+                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}/${callableParam}`}
+                >
+                  {fasten_uri}
+                </Link>
+              </>
+            )}
           </StyledTitle>
           {pkg.created_at && (
             <StyledDateCreated>

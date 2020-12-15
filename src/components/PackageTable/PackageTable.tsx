@@ -117,7 +117,11 @@ class InternalPackageTable extends React.Component<
     const { pkg, pkgVersion } = this.props;
     return (
       <StyledVersionRow key={`module_${entity.id}`}>
-        <Link to={`/packages/${pkg}/${pkgVersion}/${entity.namespace}`}>
+        <Link
+          to={`/packages/${pkg}/${pkgVersion}/${encodeURIComponent(
+            entity.namespace || "..."
+          )}`}
+        >
           {entity.namespace}
         </Link>
       </StyledVersionRow>
@@ -130,10 +134,14 @@ class InternalPackageTable extends React.Component<
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
     const { pkg, pkgVersion, namespace } = this.props;
+
+    const encodedNamespace = encodeURIComponent(namespace || "...");
+    const encodedFastenURI = encodeURIComponent(entity.fasten_uri);
+
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
         <Link
-          to={`/packages/${pkg}/${pkgVersion}/${namespace}/${entity.fasten_uri}`}
+          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${encodedFastenURI}`}
         >
           {entity.fasten_uri}
         </Link>
