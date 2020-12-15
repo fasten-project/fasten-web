@@ -56,7 +56,7 @@
     "test-with-cov": "yarn jest --passWithNoTests --coverage",
     "fix-lint": "yarn eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "lint": "yarn eslint '*/**/*.{js,ts,tsx}'",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp CNAME build/CNAME",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
