@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.4b771a9b.chunk.css",
-    "main.js": "/static/js/main.95fb215d.chunk.js",
-    "main.js.map": "/static/js/main.95fb215d.chunk.js.map",
+    "main.js": "/static/js/main.48033d14.chunk.js",
+    "main.js.map": "/static/js/main.48033d14.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.4178deff.js",
     "runtime-main.js.map": "/static/js/runtime-main.4178deff.js.map",
-    "static/js/2.bad73f18.chunk.js": "/static/js/2.bad73f18.chunk.js",
-    "static/js/2.bad73f18.chunk.js.map": "/static/js/2.bad73f18.chunk.js.map",
+    "static/js/2.a87b10b8.chunk.js": "/static/js/2.a87b10b8.chunk.js",
+    "static/js/2.a87b10b8.chunk.js.map": "/static/js/2.a87b10b8.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.4b771a9b.chunk.css.map": "/static/css/main.4b771a9b.chunk.css.map",
-    "static/js/2.bad73f18.chunk.js.LICENSE.txt": "/static/js/2.bad73f18.chunk.js.LICENSE.txt",
+    "static/js/2.a87b10b8.chunk.js.LICENSE.txt": "/static/js/2.a87b10b8.chunk.js.LICENSE.txt",
     "static/media/fasten_logo.621b8d55.svg": "/static/media/fasten_logo.621b8d55.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4178deff.js",
-    "static/js/2.bad73f18.chunk.js",
+    "static/js/2.a87b10b8.chunk.js",
     "static/css/main.4b771a9b.chunk.css",
-    "static/js/main.95fb215d.chunk.js"
+    "static/js/main.48033d14.chunk.js"
   ]
 }
