@@ -4,6 +4,7 @@ import { Tab, TabMenu } from "../TabMenu";
 import { PackageTable } from "../PackageTable";
 import { Package as PackageModel } from "../../requests/payloads/package-payload";
 import { getModules } from "../../requests/services/package";
+import { VulnerabilitiesTable } from "./VulnerabitiesTable";
 
 export interface PackageProps extends RouteComponentProps {
   /** The package that needs to be taken. */
@@ -32,6 +33,12 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
               }
             />
           );
+        },
+      },
+      {
+        label: "Vulnerabilities",
+        body: () => {
+          return <VulnerabilitiesTable />;
         },
       },
     ];
