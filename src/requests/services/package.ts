@@ -4,6 +4,7 @@ import { sendRequest } from "../utils";
 import { isValidPackageResponsePayload } from "../payloads/package-payload";
 import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
+import { isValidPackageVulnerabilitiesResponsePayload } from "../payloads/package-vulnerabilities-payload";
 
 // TODO: At the moment, there is a workaround for the issue related to the mixed security config,
 //       because Rest API doesn't support HTTPS. For solving it, the api requests
@@ -29,6 +30,13 @@ export const PACKAGE_MODULES_ENDPOINT =
  */
 export const PACKAGE_CALLABLES_ENDPOINT =
   config.extra_api + "/mvn/packages/{0}/{1}/modules/callables";
+
+/**
+ * GET Endpoint for retrieving the package's transitive vulnerabilities.
+ * Requires additional parameters: `/api/__INTERNAL__/packages/{name}/{version}/vulnerabilities`.
+ */
+export const PACKAGE_VULNERABILITIES_ENDPOINT =
+  config.extra_api + "/__INTERNAL__/packages/{0}/{1}/vulnerabilities";
 
 /**
  * The request for retrieving the package entity.
@@ -81,5 +89,20 @@ export function getModuleCallables(
       },
     },
     namespace
+  );
+}
+
+/**
+ * The request for retrieving the package's transitive vulnerabilities.
+ * @param {string} pkg - the name of the package.
+ * @param {string} ver - the version of the package.
+ */
+export function getVulnerabilities(pkg: string, ver: string) {
+  return sendRequest(
+    "get",
+    String.Format(PACKAGE_VULNERABILITIES_ENDPOINT, pkg, ver),
+    config.api,
+    isValidPackageVulnerabilitiesResponsePayload,
+    {}
   );
 }

@@ -4,11 +4,19 @@ import {
   StyledContainer,
   StyledVersionRow,
 } from "./VulnerabilitiesTable.styled";
+import { getVulnerabilities } from "../../../requests/services/package";
+import { Vulnerability } from "../../../requests/payloads/package-vulnerabilities-payload";
 
 /**
  * The props of the table component.
  */
-export interface VulnerabilitiesTableProps extends RouteComponentProps {}
+export interface VulnerabilitiesTableProps extends RouteComponentProps {
+  /** The package name for which table is rendered. */
+  pkg: string;
+
+  /** The package version for which table is rendered. */
+  pkgVersion: string;
+}
 
 /**
  * The state of the table component.
@@ -18,7 +26,7 @@ export interface VulnerabilitiesTableState {
   isLoading: boolean;
 
   /** The list of entities included in the table. */
-  data: any;
+  data: Vulnerability[];
 }
 
 class InternalVulnerabilitiesTable extends React.Component<
@@ -33,46 +41,7 @@ class InternalVulnerabilitiesTable extends React.Component<
 
     this.state = {
       isLoading: true,
-      data: [
-        {
-          path: [
-            {
-              id: 0,
-              fasten_uri: "test_uri",
-              className: "ClassA",
-              methodName: "MethodA()",
-            },
-            {
-              id: 1,
-              fasten_uri: "test_uri1",
-              className: "ClassB",
-              methodName: "MethodB()",
-            },
-            {
-              id: 2,
-              fasten_uri: "test_uri2",
-              className: "ClassC",
-              methodName: "MethodC()",
-            },
-          ],
-        },
-        {
-          path: [
-            {
-              id: 0,
-              fasten_uri: "test_uri",
-              className: "ClassJ",
-              methodName: "MethodA()",
-            },
-            {
-              id: 1,
-              fasten_uri: "test_uri1",
-              className: "ClassC",
-              methodName: "MethodZ()",
-            },
-          ],
-        },
-      ],
+      data: [],
     };
   }
 
@@ -82,7 +51,6 @@ class InternalVulnerabilitiesTable extends React.Component<
 
   /**
    * The method to retrieve the table entities by API.
-   * Depends on kind of the table.
    */
   async retrieveEntities() {
     this.setState({
@@ -90,13 +58,14 @@ class InternalVulnerabilitiesTable extends React.Component<
     });
 
     try {
-      // TODO: fetch data.
+      const { pkg, pkgVersion } = this.props;
+      const vulners = await getVulnerabilities(pkg, pkgVersion);
 
       this.setState({
         isLoading: false,
+        data: vulners,
       });
     } catch (error) {
-      // 404?
       this.setState({
         isLoading: false,
       });
