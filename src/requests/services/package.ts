@@ -5,30 +5,25 @@ import { isValidPackageResponsePayload } from "../payloads/package-payload";
 import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
 
-// TODO: At the moment, there is a workaround for the issue related to the mixed security config,
-//       because Rest API doesn't support HTTPS. For solving it, the api requests
-//       go through the middle-man system that support HTTPS. Thus, in the endpoints here,
-//       there is a suffix for the base url to API. In `config.tsx` there is a middle-man url.
-
 /**
  * GET Endpoint for retrieving the package entity.
  * Requires additional parameters: `/api/mvn/packages/{name}`.
  */
-export const PACKAGE_ENDPOINT = config.extra_api + "/mvn/packages/{0}";
+export const PACKAGE_ENDPOINT = config.apiSuffix + "/mvn/packages/{0}";
 
 /**
  * GET Endpoint for retrieving the package modules.
  * Requires additional parameters: `/api/mvn/packages/{name}/{version}/modules`.
  */
 export const PACKAGE_MODULES_ENDPOINT =
-  config.extra_api + "/mvn/packages/{0}/{1}/modules";
+  config.apiSuffix + "/mvn/packages/{0}/{1}/modules";
 
 /**
  * POST Endpoint for retrieving the package callables.
  * Requires additional parameters: `/api/mvn/packages/{name}/{version}/modules/callables`.
  */
 export const PACKAGE_CALLABLES_ENDPOINT =
-  config.extra_api + "/mvn/packages/{0}/{1}/modules/callables";
+  config.apiSuffix + "/mvn/packages/{0}/{1}/modules/callables";
 
 /**
  * The request for retrieving the package entity.
