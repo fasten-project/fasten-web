@@ -97,15 +97,23 @@ class InternalPackage extends React.Component<
   }
 
   renderAbstractionContent() {
-    const { moduleParam, callableParam } = this.props.match.params;
+    const { verParam, moduleParam, callableParam } = this.props.match.params;
     const namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
 
     if (callableParam) {
       return <Callable callable={defaultCallable} />;
     } else if (namespace) {
-      return <Module pkg={this.state.pkg} namespace={namespace} />;
+      return (
+        <Module
+          pkg={this.state.pkg.package_name}
+          pkgVer={verParam}
+          namespace={namespace}
+        />
+      );
     } else {
-      return <PackagePage pkg={this.state.pkg} />;
+      return (
+        <PackagePage pkg={this.state.pkg.package_name} pkgVer={verParam} />
+      );
     }
   }
 
@@ -144,14 +152,14 @@ class InternalPackage extends React.Component<
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            <Link to={`/packages/${pkg.package_name}/${pkg.version}`}>
-              {pkg.project_name} {pkg.version}
+            <Link to={`/packages/${pkg.package_name}/${verParam}`}>
+              {pkg.project_name} {verParam}
             </Link>
             {namespace && (
               <>
                 <span> / </span>
                 <Link
-                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}`}
+                  to={`/packages/${pkg.package_name}/${verParam}/${moduleParam}`}
                 >
                   {namespace}
                 </Link>
@@ -161,7 +169,7 @@ class InternalPackage extends React.Component<
               <>
                 <span> / </span>
                 <Link
-                  to={`/packages/${pkg.package_name}/${pkg.version}/${moduleParam}/${callableParam}`}
+                  to={`/packages/${pkg.package_name}/${verParam}/${moduleParam}/${callableParam}`}
                 >
                   {fasten_uri}
                 </Link>
