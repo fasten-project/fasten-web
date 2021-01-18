@@ -143,7 +143,7 @@ class InternalPackageTable extends React.Component<
         <Link
           to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${encodedFastenURI}`}
         >
-          {entity.fasten_uri}
+          {decodeURIComponent(entity.fasten_uri)}
         </Link>
       </StyledVersionRow>
     );
