@@ -41,8 +41,8 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
         body: () => {
           return (
             <VulnerabilitiesTable
-              pkg={this.props.pkg.package_name}
-              pkgVersion={this.props.pkg.version}
+              pkg={this.props.pkg}
+              pkgVersion={this.props.pkgVer}
             />
           );
         },

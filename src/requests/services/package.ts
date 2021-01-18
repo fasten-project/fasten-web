@@ -31,7 +31,7 @@ export const PACKAGE_CALLABLES_ENDPOINT =
  * Requires additional parameters: `/api/__INTERNAL__/packages/{name}/{version}/vulnerabilities`.
  */
 export const PACKAGE_VULNERABILITIES_ENDPOINT =
-  config.extra_api + "/__INTERNAL__/packages/{0}/{1}/vulnerabilities";
+  config.apiSuffix + "/__INTERNAL__/packages/{0}/{1}/vulnerabilities";
 
 /**
  * The request for retrieving the package entity.
