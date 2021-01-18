@@ -2,12 +2,14 @@ import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Tab, TabMenu } from "../TabMenu";
 import { PackageTable } from "../PackageTable";
-import { Package as PackageModel } from "../../requests/payloads/package-payload";
 import { getModules } from "../../requests/services/package";
 
 export interface PackageProps extends RouteComponentProps {
-  /** The package that needs to be taken. */
-  pkg: PackageModel;
+  /** The package name that needs to be taken. */
+  pkg: string;
+
+  /** The package version that needs to be considered. */
+  pkgVer: string;
 }
 
 export interface PackageState {}
@@ -24,11 +26,10 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
           return (
             <PackageTable
               kind={"MODULES"}
-              pkg={this.props.pkg.package_name}
-              // TODO: allow different versions.
-              pkgVersion={this.props.pkg.version}
+              pkg={this.props.pkg}
+              pkgVersion={this.props.pkgVer}
               fetchEntities={() =>
-                getModules(this.props.pkg.package_name, this.props.pkg.version)
+                getModules(this.props.pkg, this.props.pkgVer)
               }
             />
           );
