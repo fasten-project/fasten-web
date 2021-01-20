@@ -150,6 +150,10 @@ class InternalPackageTable extends React.Component<
   };
 
   renderRows(): React.ReactNode {
+    if (this.state.data?.entities.length == 0) {
+      return this.renderEmptyWarning();
+    }
+
     switch (this.state.data?.kind) {
       case "MODULES":
         return this.state.data?.entities.map(this.renderModuleRow);
@@ -158,6 +162,21 @@ class InternalPackageTable extends React.Component<
       default:
         return <h1>Unknown Type {this.state.data?.kind}</h1>;
     }
+  }
+
+  renderEmptyWarning(): React.ReactNode {
+    let entityKindLabel = "";
+    switch (this.state.data?.kind) {
+      case "MODULES":
+        entityKindLabel = "modules";
+        break;
+      case "CALLABLES":
+        entityKindLabel = "callables";
+        break;
+      default:
+        entityKindLabel = "entities";
+    }
+    return <h2>No {entityKindLabel} available for this package.</h2>;
   }
 
   render() {
