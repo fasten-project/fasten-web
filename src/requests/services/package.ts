@@ -4,7 +4,6 @@ import { sendRequest } from "../utils";
 import { isValidPackageResponsePayload } from "../payloads/package-payload";
 import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
-import { isValidPackageVulnerabilitiesResponsePayload } from "../payloads/package-vulnerabilities-payload";
 
 /**
  * GET Endpoint for retrieving the package entity.
@@ -30,8 +29,8 @@ export const PACKAGE_CALLABLES_ENDPOINT =
  * GET Endpoint for retrieving the package's transitive vulnerabilities.
  * Requires additional parameters: `/api/__INTERNAL__/packages/{name}/{version}/vulnerabilities`.
  */
-export const PACKAGE_VULNERABILITIES_ENDPOINT =
-  config.apiSuffix + "/__INTERNAL__/packages/{0}/{1}/vulnerabilities";
+// export const PACKAGE_VULNERABILITIES_ENDPOINT =
+//   config.apiSuffix + "/__INTERNAL__/packages/{0}/{1}/vulnerabilities";
 
 /**
  * The request for retrieving the package entity.
