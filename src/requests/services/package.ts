@@ -93,11 +93,80 @@ export function getModuleCallables(
  * @param {string} ver - the version of the package.
  */
 export function getVulnerabilities(pkg: string, ver: string) {
-  return sendRequest(
-    "get",
-    String.Format(PACKAGE_VULNERABILITIES_ENDPOINT, pkg, ver),
-    config.api,
-    isValidPackageVulnerabilitiesResponsePayload,
-    {}
-  );
+  return [
+    {
+      vulnerability: "https://nvd.nist.gov/vuln/detail/CVE-2019-11777",
+      path: [
+        {
+          id: 0,
+          uri:
+            "/org.jboss.mq/AcknowledgementRequest.<init>()/java.lang/VoidType",
+          className: "AknowledgmentRequest",
+          methodName: "init()",
+        },
+        {
+          id: 1,
+          uri: "",
+          className: "JavaLang",
+          methodName: "Parse()",
+        },
+        {
+          id: 2,
+          uri: "",
+          className: "ParserJackson",
+          methodName: "ParseJson()",
+        },
+      ],
+    },
+    {
+      vulnerability: "https://nvd.nist.gov/vuln/detail/CVE-2019-11777",
+      path: [
+        {
+          id: 0,
+          uri:
+            "/org.jboss.mq/Connection$1.newThread(/java.lang/Runnable)/java.lang/Thread",
+          className: "Connection",
+          methodName: "newThread()",
+        },
+        {
+          id: 1,
+          uri: "",
+          className: "EasyThreading",
+          methodName: "threadRequest()",
+        },
+      ],
+    },
+    {
+      vulnerability: "https://nvd.nist.gov/vuln/detail/CVE-2019-11777",
+      path: [
+        {
+          id: 0,
+          uri:
+            "/org.jboss.mq/DurableSubscriptionID.getClientID()/java.lang/String",
+          className: "DurableSubscriptionID",
+          methodName: "getClientId()",
+        },
+        {
+          id: 1,
+          uri: "",
+          className: "UserRequest",
+          methodName: "getUser()",
+        },
+        {
+          id: 2,
+          uri: "",
+          className: "NumberGenerator",
+          methodName: "generateID()",
+        },
+      ],
+    },
+  ];
+
+  // return sendRequest(
+  //   "get",
+  //   String.Format(PACKAGE_VULNERABILITIES_ENDPOINT, pkg, ver),
+  //   config.api,
+  //   isValidPackageVulnerabilitiesResponsePayload,
+  //   {}
+  // );
 }
