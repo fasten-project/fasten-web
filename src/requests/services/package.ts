@@ -92,6 +92,7 @@ export function getModuleCallables(
  * @param {string} pkg - the name of the package.
  * @param {string} ver - the version of the package.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getVulnerabilities(pkg: string, ver: string) {
   return [
     {
