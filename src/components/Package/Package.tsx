@@ -3,6 +3,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Tab, TabMenu } from "../TabMenu";
 import { PackageTable } from "../PackageTable";
 import { getModules } from "../../requests/services/package";
+import { VulnerabilitiesTable } from "./VulnerabitiesTable";
 
 export interface PackageProps extends RouteComponentProps {
   /** The package name that needs to be taken. */
@@ -31,6 +32,17 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
               fetchEntities={() =>
                 getModules(this.props.pkg, this.props.pkgVer)
               }
+            />
+          );
+        },
+      },
+      {
+        label: "Vulnerabilities",
+        body: () => {
+          return (
+            <VulnerabilitiesTable
+              pkg={this.props.pkg}
+              pkgVersion={this.props.pkgVer}
             />
           );
         },
