@@ -3,8 +3,15 @@ import metrics from "../../theme/metrics";
 import colours from "../../theme/colours";
 
 export const StyledContainer = styled.div({
-  marginTop: "10%",
+  marginTop: "12%",
   width: "100%",
+  "& a": {
+    color: colours.primary,
+    textDecoration: "none",
+    ":hover": {
+      filter: "brightness(85%)",
+    },
+  },
 });
 
 export const StyledTitle = styled.p({
@@ -16,13 +23,6 @@ export const StyledTitle = styled.p({
 
 export const StyledSubtitle = styled.p({
   textAlign: "center",
-  "& a": {
-    color: colours.primary,
-    textDecoration: "none",
-    ":hover": {
-      filter: "brightness(85%)",
-    },
-  },
 });
 
 /**
@@ -73,4 +73,13 @@ export const StyledSeachBarInput = styled.div({
     color: "#666666",
     transition: "all 0.4s",
   },
+});
+
+export const StyledDisclaimer = styled.div({
+  position: "fixed",
+  bottom: 20,
+  left: "20%",
+  margin: "0 auto",
+  textAlign: "center",
+  width: "60%",
 });
