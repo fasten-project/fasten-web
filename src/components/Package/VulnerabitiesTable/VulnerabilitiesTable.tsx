@@ -6,6 +6,7 @@ import {
 } from "./VulnerabilitiesTable.styled";
 import { getVulnerabilities } from "../../../requests/services/package";
 import { Vulnerability } from "../../../requests/payloads/package-vulnerabilities-payload";
+import { BsArrowRight } from "react-icons/bs";
 
 /**
  * The props of the table component.
@@ -82,10 +83,15 @@ class InternalVulnerabilitiesTable extends React.Component<
         {entity.path.map((step: any, index: number) => {
           return (
             <>
+              {index > 0 && <br />}
+              {index > 0 && (
+                <span style={{ marginLeft: 50 }}>
+                  <BsArrowRight />{" "}
+                </span>
+              )}
               <Link to={step.id}>
                 {step.className}.{step.methodName}
               </Link>
-              {index + 1 < entity.path.length && <span> -&gt; </span>}
             </>
           );
         })}
