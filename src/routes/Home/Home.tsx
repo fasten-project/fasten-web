@@ -2,6 +2,7 @@ import * as React from "react";
 import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
+  StyledDisclaimer,
   StyledSeachBarInput,
   StyledSubtitle,
   StyledTitle,
@@ -72,7 +73,7 @@ class InternalHome extends React.Component<
             <input
               type={"text"}
               name={"search"}
-              placeholder={"Search packages (ex. junit:junit)"}
+              placeholder={"Search package"}
               value={this.state.searchQuery}
               onChange={this.handleSearchQueryChange}
               onKeyDown={this.handleSearch}
@@ -83,16 +84,31 @@ class InternalHome extends React.Component<
           </StyledSeachBarInput>
 
           <StyledSubtitle>
-            Learn more about{" "}
-            <a href={"https://www.fasten-project.eu/view/Main/Overview"}>
-              concept
-            </a>{" "}
-            and{" "}
-            <a href={"https://www.fasten-project.eu/view/Main/Use-cases"}>
-              use cases
+            Example:{" "}
+            <a href={"/#/packages/jboss:jbossmq-client/3.2.3"}>
+              jboss:jbossmq-client
             </a>
-            .
           </StyledSubtitle>
+
+          <StyledDisclaimer>
+            <p>
+              Learn more about{" "}
+              <a href={"https://www.fasten-project.eu/view/Main/Overview"}>
+                concept
+              </a>{" "}
+              and{" "}
+              <a href={"https://www.fasten-project.eu/view/Main/Use-cases"}>
+                use cases
+              </a>
+              .
+            </p>
+            <p>
+              <b>Disclaimer:</b>{" "}
+              <a href={"http://github.com/fasten-project/fasten"}>FASTEN</a> is
+              currently under development with a limited amount of packages
+              available.
+            </p>
+          </StyledDisclaimer>
         </StyledContainer>
       </>
     );
