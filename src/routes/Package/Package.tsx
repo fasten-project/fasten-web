@@ -10,6 +10,7 @@ import {
   StyledContainer,
   StyledDateCreated,
   StyledTitle,
+  StyleRepoLink,
 } from "./Package.styled";
 import {
   defaultPackage,
@@ -20,6 +21,7 @@ import { Package as PackagePage } from "../../components/Package";
 import { Module } from "../../components/Module";
 import { Callable } from "../../components/Callable";
 import { defaultCallable } from "../../requests/payloads/package-callable-payload";
+import { GoRepo } from "react-icons/go";
 
 /**
  * Props for the Package route.
@@ -175,17 +177,17 @@ class InternalPackage extends React.Component<
                 </Link>
               </>
             )}
+            {pkg.repository && (
+              <StyleRepoLink href={pkg.repository}>
+                <GoRepo />
+              </StyleRepoLink>
+            )}
           </StyledTitle>
           {pkg.created_at && (
             <StyledDateCreated>
               Created {pkg.created_at.toLocaleDateString()}
             </StyledDateCreated>
           )}
-          {/*{pkg.repository && (*/}
-          {/*  <StyleRepoLink href={pkg.repository}>*/}
-          {/*    <GoRepo />*/}
-          {/*  </StyleRepoLink>*/}
-          {/*)}*/}
           {this.renderAbstractionContent()}
         </StyledContainer>
       </>
