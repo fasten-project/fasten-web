@@ -102,6 +102,9 @@ class InternalVulnerabilitiesTable extends React.Component<
       <StyledContainer>
         <h3>Vulnerabilities</h3>
         <hr />
+        {this.state.data?.length == 0 && (
+          <h2>No vulnerabilities found for this package!</h2>
+        )}
         {this.state.data?.map(this.renderRow)}
       </StyledContainer>
     );
