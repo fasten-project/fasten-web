@@ -67,6 +67,11 @@ class InternalSearch extends React.Component<
     try {
       const suggestions: PackageModel[] = await getSuggestions(searchQuery);
 
+      // If package with exact match, go to it.
+      if (suggestions.find((s) => s.package_name == searchQuery)) {
+        this.props.history.push(`/packages/${searchQuery}`);
+      }
+
       this.setState({
         isLoading: false,
         suggestions: suggestions,
