@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { array } from "yup";
 
 /**
  * Validation schema for {@link Package}.
@@ -16,10 +17,10 @@ export const PACKAGE_SCHEMA = yup
     forge: yup.string().required(),
 
     /** Readable project name (e.g., JUnit). */
-    project_name: yup.string().required(),
+    project_name: yup.string().nullable(),
 
     /** The repository source of the package. */
-    repository: yup.string().required(),
+    repository: yup.string().nullable(),
 
     /** The date when the package was published. */
     created_at: yup.date().max(new Date(Date.now())).nullable(),
@@ -28,6 +29,11 @@ export const PACKAGE_SCHEMA = yup
     version: yup.string(),
   })
   .required();
+
+/**
+ * Validation schema for {@link Package[]}.
+ */
+export const PACKAGE_ARRAY_SCHEMA = array().of(PACKAGE_SCHEMA);
 
 /**
  * The type of the Package instance generated from yup schema {@link PACKAGE_SCHEMA}.
@@ -55,4 +61,15 @@ export function isValidPackageResponsePayload(
   payload: any
 ): payload is Package {
   return PACKAGE_SCHEMA.isValidSync(payload);
+}
+
+/**
+ * Validates that the given response payload is as expected.
+ * @param {any} payload - the response payload.
+ * @returns {boolean} - whether or not the payload is type-safe for {@link Package[]}.
+ */
+export function isValidPackagesArrayResponsePayload(
+  payload: any
+): payload is Package[] {
+  return PACKAGE_ARRAY_SCHEMA.isValidSync(payload);
 }

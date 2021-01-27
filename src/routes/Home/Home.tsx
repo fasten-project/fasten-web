@@ -56,7 +56,7 @@ class InternalHome extends React.Component<
    */
   handleSearch(e: React.KeyboardEvent) {
     if (e.key == "Enter")
-      this.props.history.push(`/packages/${this.state.searchQuery}`);
+      this.props.history.push(`/search?query=${this.state.searchQuery}`);
   }
 
   render() {
