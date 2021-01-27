@@ -66,11 +66,11 @@ export const StyledSeachBarInput = styled.div({
 
 export const StyledSuggestion = styled.a({
   display: "block",
-  margin: "0 20px",
-  padding: "5px 15px",
+  margin: `${metrics.margin.none} ${metrics.margin.lg}px`,
+  padding: `${metrics.padding.tiny}px ${metrics.padding.md}px`,
   verticalAlign: "center",
-  height: 50,
-  lineHeight: "50px",
+  height: metrics.margin.xxl,
+  lineHeight: `${metrics.margin.xxl}px`,
   ":hover": {
     backgroundColor: "rgba(82, 82, 82, .2)",
   },
