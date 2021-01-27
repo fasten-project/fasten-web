@@ -9,6 +9,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { getSuggestions } from "../../requests/services/search";
 import { Package as PackageModel } from "../../requests/payloads/package-payload";
+import metrics from "../../theme/metrics";
 
 /**
  * Props for the Search route.
@@ -107,6 +108,8 @@ class InternalSearch extends React.Component<
   }
 
   render() {
+    const { suggestions, isLoading } = this.state;
+
     return (
       <>
         <NavBar />
@@ -124,7 +127,16 @@ class InternalSearch extends React.Component<
               <AiOutlineSearch />
             </span>
           </StyledSeachBarInput>
-          {this.state.suggestions.map((pkg) => (
+          {suggestions.length == 0 && !isLoading && (
+            <h2
+              style={{
+                margin: metrics.margin.xxl,
+              }}
+            >
+              No suggestions
+            </h2>
+          )}
+          {suggestions.map((pkg) => (
             <StyledSuggestion
               href={"/#/packages/" + pkg.package_name}
               key={pkg.id}
