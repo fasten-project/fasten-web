@@ -9,6 +9,7 @@ import {
 } from "./Home.styled";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { getPackage } from "../../requests/services/package";
 
 /**
  * Props for the Home route.
@@ -54,9 +55,17 @@ class InternalHome extends React.Component<
    * Handle search action for the package (key press callback).
    * @param {React.KeyboardEvent} e - keyboard event object.
    */
-  handleSearch(e: React.KeyboardEvent) {
-    if (e.key == "Enter")
-      this.props.history.push(`/search?query=${this.state.searchQuery}`);
+  async handleSearch(e: React.KeyboardEvent) {
+    if (e.key != "Enter") return;
+
+    const { searchQuery } = this.state;
+
+    try {
+      await getPackage(searchQuery);
+      this.props.history.push(`/packages/${searchQuery}`);
+    } catch (error) {
+      this.props.history.push(`/search?query=${searchQuery}`);
+    }
   }
 
   render() {

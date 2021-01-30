@@ -11,6 +11,7 @@ import { StyledAppContainer } from "./App.styled";
 import { Home } from "./routes/Home";
 import { Package } from "./routes/Package";
 import { Search } from "./routes/Search";
+import { NotFound } from "./routes/NotFound";
 
 export type AppProps = RouteComponentProps & {};
 
@@ -33,6 +34,7 @@ class InternalApp extends React.Component<AppProps, AppState> {
             key={location.key}
             component={Package}
           />
+          <Route component={NotFound} />
         </Switch>
       </StyledAppContainer>
     );
