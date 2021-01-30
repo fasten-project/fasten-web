@@ -88,10 +88,10 @@ class InternalPackageTable extends React.Component<
         data: dt,
       });
     } catch (error) {
-      // 404?
       this.setState({
         isLoading: false,
       });
+      this.props.history.push("/oops");
     }
   }
 
