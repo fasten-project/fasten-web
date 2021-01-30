@@ -26,7 +26,7 @@ export const PACKAGE_SCHEMA = yup
     created_at: yup.date().max(new Date(Date.now())).nullable(),
 
     /** The latest version of the package. */
-    version: yup.string(),
+    version: yup.string().nullable(),
   })
   .required();
 
@@ -50,6 +50,7 @@ export const defaultPackage: Package = {
   project_name: "",
   repository: "",
   created_at: null,
+  version: null,
 };
 
 /**
