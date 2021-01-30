@@ -145,7 +145,7 @@ class InternalPackage extends React.Component<
     }
 
     // Redirect to the latest version by default.
-    if (verParam == undefined) {
+    if (verParam == undefined && pkg.version) {
       return <Redirect to={`/packages/${pkg.package_name}/${pkg.version}`} />;
     }
 
@@ -154,8 +154,13 @@ class InternalPackage extends React.Component<
         <NavBar />
         <StyledContainer>
           <StyledTitle>
-            <Link to={`/packages/${pkg.package_name}/${verParam}`}>
-              {pkg.project_name} {verParam}
+            <Link
+              to={
+                `/packages/${pkg.package_name}` +
+                (verParam === undefined ? "" : `/${verParam}`)
+              }
+            >
+              {pkg.project_name || pkg.package_name} {verParam}
             </Link>
             {namespace && (
               <>
