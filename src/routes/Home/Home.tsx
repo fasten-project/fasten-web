@@ -85,7 +85,7 @@ class InternalHome extends React.Component<
 
           <StyledSubtitle>
             Example:{" "}
-            <a href={"/#/packages/jboss:jbossmq-client/3.2.3"}>
+            <a href={"/packages/jboss:jbossmq-client/3.2.3"}>
               jboss:jbossmq-client
             </a>
           </StyledSubtitle>

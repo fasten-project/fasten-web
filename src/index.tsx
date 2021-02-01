@@ -8,7 +8,7 @@ import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter basename={"/"}>
+    <BrowserRouter>
       <App />
     </HashRouter>
   </React.StrictMode>,
