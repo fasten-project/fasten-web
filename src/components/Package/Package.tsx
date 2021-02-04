@@ -2,7 +2,10 @@ import * as React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Tab, TabMenu } from "../TabMenu";
 import { PackageTable } from "../PackageTable";
-import { getModules } from "../../requests/services/package";
+import {
+  getModules,
+  getPackageVersions,
+} from "../../requests/services/package";
 import { VulnerabilitiesTable } from "./VulnerabitiesTable";
 
 export interface PackageProps extends RouteComponentProps {
@@ -21,6 +24,19 @@ export interface PackageState {}
 class InternalPackage extends React.Component<PackageProps, PackageState> {
   render() {
     const tabs: Tab[] = [
+      {
+        label: "Versions",
+        body: () => {
+          return (
+            <PackageTable
+              kind={"VERSIONS"}
+              pkg={this.props.pkg}
+              pkgVersion={this.props.pkgVer}
+              fetchEntities={() => getPackageVersions(this.props.pkg)}
+            />
+          );
+        },
+      },
       {
         label: "Modules",
         body: () => {
