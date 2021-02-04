@@ -4,12 +4,20 @@ import { sendRequest } from "../utils";
 import { isValidPackageResponsePayload } from "../payloads/package-payload";
 import { isValidModulesResponsePayload } from "../payloads/package-module-payload";
 import { isValidCallablesResponsePayload } from "../payloads/package-callable-payload";
+import { isValidPackageVersionsArrayResponsePayload } from "../payloads/package-versions-payload";
 
 /**
  * GET Endpoint for retrieving the package entity.
  * Requires additional parameters: `/api/mvn/packages/{name}`.
  */
 export const PACKAGE_ENDPOINT = config.apiSuffix + "/mvn/packages/{0}";
+
+/**
+ * GET Endpoint for retrieving the package versions.
+ * Requires additional parameters: `/api/mvn/packages/{name}/versions`.
+ */
+export const PACKAGE_VERSIONS_ENDPOINT =
+  config.apiSuffix + "/mvn/packages/{0}/versions";
 
 /**
  * GET Endpoint for retrieving the package modules.
@@ -42,6 +50,20 @@ export function getPackage(pkg: string) {
     String.Format(PACKAGE_ENDPOINT, pkg),
     config.api,
     isValidPackageResponsePayload,
+    {}
+  );
+}
+
+/**
+ * The request for retrieving the package versions.
+ * @param {string} pkg - the name of the wanted package.
+ */
+export function getPackageVersions(pkg: string) {
+  return sendRequest(
+    "get",
+    String.Format(PACKAGE_VERSIONS_ENDPOINT, pkg),
+    config.api,
+    isValidPackageVersionsArrayResponsePayload,
     {}
   );
 }

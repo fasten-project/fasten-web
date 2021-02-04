@@ -3,6 +3,12 @@ import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
 import { Callable } from "../../requests/payloads/package-callable-payload";
+import { PackageVersion } from "../../requests/payloads/package-versions-payload";
+
+type VersionsTableData = {
+  kind: "VERSIONS";
+  entities: PackageVersion[];
+};
 
 type ModulesTableData = {
   kind: "MODULES";
@@ -16,16 +22,20 @@ type CallablesTableData = {
 
 /**
  * The type model of the table entity.
- * Discriminated union of {@link Module} and {@link @Callable}.
+ * Discriminated union of {@link PackageVersion}, {@link Module} and {@link Callable}.
  */
-type TableData = ModulesTableData | CallablesTableData | undefined;
+type TableData =
+  | VersionsTableData
+  | ModulesTableData
+  | CallablesTableData
+  | undefined;
 
 /**
  * The props of the package table component.
  */
 export interface PackageTableProps extends RouteComponentProps {
   /** The type of entities included in the table. */
-  kind: "MODULES" | "CALLABLES";
+  kind: "VERSIONS" | "MODULES" | "CALLABLES";
 
   /** The package name for which table is rendered. */
   pkg: string;
@@ -100,6 +110,8 @@ class InternalPackageTable extends React.Component<
    */
   getTitle(): string {
     switch (this.props.kind) {
+      case "VERSIONS":
+        return "Versions";
       case "MODULES":
         return "Modules";
       case "CALLABLES":
@@ -108,6 +120,19 @@ class InternalPackageTable extends React.Component<
         return "Unknown";
     }
   }
+
+  /**
+   * Renders the package version entity.
+   * @param entity is {@link PackageVersion} to render.
+   */
+  renderVersionRow = (entity: PackageVersion): React.ReactNode => {
+    const { pkg } = this.props;
+    return (
+      <StyledVersionRow key={`version_${entity.id}`}>
+        <Link to={`/packages/${pkg}/${entity.version}`}>{entity.version}</Link>
+      </StyledVersionRow>
+    );
+  };
 
   /**
    * Renders the package module entity.
@@ -155,6 +180,8 @@ class InternalPackageTable extends React.Component<
     }
 
     switch (this.state.data?.kind) {
+      case "VERSIONS":
+        return this.state.data?.entities.map(this.renderVersionRow);
       case "MODULES":
         return this.state.data?.entities.map(this.renderModuleRow);
       case "CALLABLES":
@@ -167,6 +194,9 @@ class InternalPackageTable extends React.Component<
   renderEmptyWarning(): React.ReactNode {
     let entityKindLabel = "";
     switch (this.state.data?.kind) {
+      case "VERSIONS":
+        entityKindLabel = "callables";
+        break;
       case "MODULES":
         entityKindLabel = "modules";
         break;
