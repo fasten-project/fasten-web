@@ -26,10 +26,10 @@ export const PACKAGE_CALLABLE_SCHEMA = yup
     is_internal_call: yup.boolean().required(),
 
     /** The start line of the callable. */
-    line_start: yup.number().integer().required(),
+    line_start: yup.number().integer().nullable(),
 
     /** The end line of the callable. */
-    line_end: yup.number().integer().required(),
+    line_end: yup.number().integer().nullable(),
 
     /** The date when the callable was published. */
     created_at: yup.date().max(new Date(Date.now())).nullable(),
