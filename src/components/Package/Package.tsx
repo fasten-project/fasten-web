@@ -25,19 +25,6 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
   render() {
     const tabs: Tab[] = [
       {
-        label: "Versions",
-        body: () => {
-          return (
-            <PackageTable
-              kind={"VERSIONS"}
-              pkg={this.props.pkg}
-              pkgVersion={this.props.pkgVer}
-              fetchEntities={() => getPackageVersions(this.props.pkg)}
-            />
-          );
-        },
-      },
-      {
         label: "Modules",
         body: () => {
           return (
@@ -59,6 +46,19 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
             <VulnerabilitiesTable
               pkg={this.props.pkg}
               pkgVersion={this.props.pkgVer}
+            />
+          );
+        },
+      },
+      {
+        label: "Versions",
+        body: () => {
+          return (
+            <PackageTable
+              kind={"VERSIONS"}
+              pkg={this.props.pkg}
+              pkgVersion={this.props.pkgVer}
+              fetchEntities={() => getPackageVersions(this.props.pkg)}
             />
           );
         },

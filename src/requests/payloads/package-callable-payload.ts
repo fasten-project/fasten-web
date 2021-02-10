@@ -16,6 +16,12 @@ export const PACKAGE_CALLABLE_SCHEMA = yup
     /** The URI in the FASTEN system. */
     fasten_uri: yup.string().required(),
 
+    /** User-friendly, formatted string of method name. */
+    methodName: yup.string().nullable(),
+
+    /** User-friendly, formatted string of method arguments. */
+    methodArgs: yup.string().nullable(),
+
     /** Is the callable internal within the package? */
     is_internal_call: yup.boolean().required(),
 
@@ -57,6 +63,8 @@ export const defaultCallable: Callable = {
   id: 0,
   module_id: 0,
   fasten_uri: "",
+  methodName: "",
+  methodArgs: "",
   is_internal_call: true,
   line_start: 0,
   line_end: 0,
