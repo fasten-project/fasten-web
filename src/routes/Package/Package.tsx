@@ -9,6 +9,7 @@ import { NavBar } from "../../components/NavBar";
 import {
   StyledContainer,
   StyledDateCreated,
+  StyledLoaderContainer,
   StyledTitle,
   StyleRepoLink,
 } from "./Package.styled";
@@ -22,6 +23,8 @@ import { Module } from "../../components/Module";
 import { Callable } from "../../components/Callable";
 import { defaultCallable } from "../../requests/payloads/package-callable-payload";
 import { GoRepo } from "react-icons/go";
+import { BeatLoader } from "react-spinners";
+import colours from "../../theme/colours";
 
 /**
  * Props for the Package route.
@@ -135,7 +138,14 @@ class InternalPackage extends React.Component<
 
     // Display placeholder while Package instance is loading from API.
     if (this.state.isLoading) {
-      return <h1>Loading...</h1>;
+      return (
+        <>
+          <NavBar />
+          <StyledLoaderContainer>
+            <BeatLoader color={colours.primary} size={20} />
+          </StyledLoaderContainer>
+        </>
+      );
     }
 
     // Return to homepage if package wasn't found.
