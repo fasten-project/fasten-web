@@ -7,6 +7,15 @@ export const StyledContainer = styled.div({
   margin: "5% auto",
 });
 
+export const StyledLoaderContainer = styled.div({
+  margin: 0,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%)",
+  textAlign: "center",
+});
+
 export const StyledTitle = styled.h1({
   margin: 0,
   marginBottom: 15,
