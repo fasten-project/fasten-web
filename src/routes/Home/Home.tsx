@@ -4,12 +4,12 @@ import {
   StyledContainer,
   StyledDisclaimer,
   StyledSeachBarInput,
-  StyledSubtitle,
   StyledTitle,
 } from "./Home.styled";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { getPackage } from "../../requests/services/package";
+import { HomeExamples } from "../../components/HomeExamples";
 
 /**
  * Props for the Home route.
@@ -92,12 +92,7 @@ class InternalHome extends React.Component<
             </span>
           </StyledSeachBarInput>
 
-          <StyledSubtitle>
-            Example:{" "}
-            <a href={"/#/packages/jboss:jbossmq-client/3.2.3"}>
-              jboss:jbossmq-client
-            </a>
-          </StyledSubtitle>
+          <HomeExamples />
 
           <StyledDisclaimer>
             <p>
