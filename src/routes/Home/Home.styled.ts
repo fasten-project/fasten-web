@@ -3,7 +3,7 @@ import metrics from "../../theme/metrics";
 import colours from "../../theme/colours";
 
 export const StyledContainer = styled.div({
-  marginTop: "12%",
+  marginTop: "5%",
   width: "100%",
   "& a": {
     color: colours.primary,
@@ -18,10 +18,6 @@ export const StyledTitle = styled.p({
   width: "45%",
   margin: "auto",
   fontSize: metrics.fontSize.xl,
-  textAlign: "center",
-});
-
-export const StyledSubtitle = styled.p({
   textAlign: "center",
 });
 
