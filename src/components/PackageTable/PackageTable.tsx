@@ -161,17 +161,17 @@ class InternalPackageTable extends React.Component<
     const { pkg, pkgVersion, namespace } = this.props;
 
     const encodedNamespace = encodeURIComponent(namespace || "...");
-    const encodedMethodArgs = encodeURIComponent(entity.methodArgs || "");
+    const encodedMethodArgs = encodeURIComponent(entity.method_args || "");
 
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
         <Link
           // TODO: will need to do something with callable path; it won't work this way.
-          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${entity.methodName}(${encodedMethodArgs})`}
+          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${entity.method_name}(${encodedMethodArgs})`}
         >
-          {(entity.methodName &&
-            entity.methodArgs &&
-            `${entity.methodName}(${entity.methodArgs})`) ||
+          {(entity.method_name &&
+            entity.method_args &&
+            `${entity.method_name}(${entity.method_args})`) ||
             entity.fasten_uri}
         </Link>
       </StyledVersionRow>
