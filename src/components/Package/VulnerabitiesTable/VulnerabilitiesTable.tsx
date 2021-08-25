@@ -89,8 +89,8 @@ class InternalVulnerabilitiesTable extends React.Component<
                   <BsArrowRight />{" "}
                 </span>
               )}
-              <Link to={step.id}>
-                {step.className}.{step.methodName}
+              <Link to={`/packages/${step.package_name}/${step.version}`}>
+                {step.class_name}.{step.method_name}
               </Link>
             </>
           );
