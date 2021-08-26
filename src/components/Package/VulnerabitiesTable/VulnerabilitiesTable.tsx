@@ -64,7 +64,7 @@ class InternalVulnerabilitiesTable extends React.Component<
 
       this.setState({
         isLoading: false,
-        data: vulners,
+        data: [vulners],
       });
     } catch (error) {
       this.setState({
@@ -80,21 +80,23 @@ class InternalVulnerabilitiesTable extends React.Component<
   renderRow = (entity: any): React.ReactNode => {
     return (
       <StyledVersionRow key={`vulnerability_${entity.id}`}>
-        {entity.path.map((step: any, index: number) => {
-          return (
-            <>
-              {index > 0 && <br />}
-              {index > 0 && (
-                <span style={{ marginLeft: 50 }}>
-                  <BsArrowRight />{" "}
-                </span>
-              )}
-              <Link to={step.id}>
-                {step.className}.{step.methodName}
-              </Link>
-            </>
-          );
-        })}
+        {entity.path &&
+          entity.path.map((step: any, index: number) => {
+            return (
+              <>
+                {index > 0 && <br />}
+                {index > 0 && (
+                  <span style={{ marginLeft: 50 }}>
+                    <BsArrowRight />{" "}
+                  </span>
+                )}
+                {/* TODO: enhance details, so the vulnerability links to a specific callable. */}
+                <Link to={`/packages/${step.package_name}/${step.version}`}>
+                  {step.package_name}/{step.version}
+                </Link>
+              </>
+            );
+          })}
       </StyledVersionRow>
     );
   };
@@ -108,10 +110,10 @@ class InternalVulnerabilitiesTable extends React.Component<
       <StyledContainer>
         <h3>Vulnerabilities</h3>
         <hr />
-        {this.state.data?.length == 0 && (
+        {this.state.data.length == 0 && (
           <h2>No vulnerabilities found for this package!</h2>
         )}
-        {this.state.data?.map(this.renderRow)}
+        {this.state.data.map(this.renderRow)}
       </StyledContainer>
     );
   }
