@@ -26,9 +26,7 @@ export const PACKAGE_VULNERABILITY_SCHEMA = yup
 /**
  * Validation schema for {@link VulnerabilitiesResponsePayload}
  */
-export const PACKAGE_VULNERABILITIES_PAYLOAD_RESPONSE = array().of(
-  PACKAGE_VULNERABILITY_SCHEMA
-);
+export const PACKAGE_VULNERABILITIES_PAYLOAD_RESPONSE = PACKAGE_VULNERABILITY_SCHEMA;
 
 /**
  * The type of the Package Vulnerability instance generated from yup schema {@link PACKAGE_VULNERABILITY_SCHEMA}.
@@ -38,7 +36,7 @@ export type Vulnerability = yup.InferType<typeof PACKAGE_VULNERABILITY_SCHEMA>;
 /**
  * Package Vulnerabilities response payload
  */
-export type VulnerabilitiesResponsePayload = Vulnerability[];
+export type VulnerabilitiesResponsePayload = Vulnerability;
 
 /**
  * Default object for {@link Vulnerability}
