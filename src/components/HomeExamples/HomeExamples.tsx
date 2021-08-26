@@ -17,23 +17,16 @@ export class HomeExamples extends React.Component<
     return (
       <StyledHomeExamplesContainer>
         <HomeExampleBlock
-          pkgName={"Junit"}
-          pkgDesc={
-            "The programmer-friendly testing framework for Java and the JVM."
-          }
-          pkgUrl={"/#/packages/junit:junit"}
-        />
-        <HomeExampleBlock
-          pkgName={"JBossMQ Client"}
-          pkgDesc={
-            "Implementation of the Java Message Service API part of the J2EE specification."
-          }
-          pkgUrl={"/#/packages/jboss:jbossmq-client/3.2.3"}
-        />
-        <HomeExampleBlock
           pkgName={"Mockito Core"}
           pkgDesc={"Tasty mocking framework for unit tests in Java."}
           pkgUrl={"/#/packages/org.mockito:mockito-core/1.10.18"}
+        />
+        <HomeExampleBlock
+          pkgName={"Lagom"}
+          pkgDesc={"The opinionated microservices framework."}
+          pkgUrl={
+            "/#/packages/com.lightbend.lagom:lagom-scaladsl-cluster_2.11/1.4.1"
+          }
         />
         <HomeExampleBlock
           pkgName={"SLF4J API"}
@@ -41,14 +34,25 @@ export class HomeExamples extends React.Component<
           pkgUrl={"/#/packages/org.slf4j:slf4j-api/1.1.0"}
         />
         <HomeExampleBlock
-          pkgName={"Scala Library"}
-          pkgDesc={"Standard library for the Scala Programming Language."}
-          pkgUrl={"/#/packages/org.scala-lang:scala-library/2.10.0"}
+          pkgName={"Finagle"}
+          pkgDesc={"A network stack for distributed systems.."}
+          pkgUrl={"/#/packages/com.twitter:finagle-tunable_2.13/20.10.0"}
         />
         <HomeExampleBlock
-          pkgName={"Jackson Databind"}
-          pkgDesc={"General data-binding functionality for Jackson."}
-          pkgUrl={"/#/packages/com.fasterxml.jackson.core:jackson-databind"}
+          pkgName={"Dirigible"}
+          pkgDesc={
+            "High-Productivity Application that provides development tools and a runtime environment."
+          }
+          pkgUrl={
+            "/#/packages/org.eclipse.dirigible:dirigible-core-messaging/5.2.0"
+          }
+        />
+        <HomeExampleBlock
+          pkgName={"Codegen Lite"}
+          pkgDesc={
+            "Holds the classes and templates required to generate the source files for the core SDK."
+          }
+          pkgUrl={"/#/packages/software.amazon.awssdk:codegen-lite/2.14.12"}
         />
       </StyledHomeExamplesContainer>
     );
