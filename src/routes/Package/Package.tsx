@@ -129,8 +129,8 @@ class InternalPackage extends React.Component<
     let fasten_uri = callableParam ? decodeURIComponent(callableParam) : null;
 
     // Remove leading slash for better look in breadcrumbs.
-    if (namespace && namespace.charAt(0) == "/") {
-      namespace = namespace.substring(1);
+    if (namespace) {
+      namespace = namespace.split("/")[2];
     }
     if (fasten_uri && fasten_uri.charAt(0) == "/") {
       fasten_uri = fasten_uri.substring(1);
