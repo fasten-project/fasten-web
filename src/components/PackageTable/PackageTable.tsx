@@ -141,7 +141,13 @@ class InternalPackageTable extends React.Component<
   renderModuleRow = (entity: Module): React.ReactNode => {
     return (
       <StyledVersionRow key={`module_${entity.id}`}>
-        <Link to={`#`}>{entity.module_name_id}</Link>
+        <Link
+          to={`/packages/${pkg}/${pkgVersion}/${encodeURIComponent(
+            entity.namespace || "..."
+          )}`}
+        >
+          {entity.namespace}
+        </Link>
       </StyledVersionRow>
     );
   };
