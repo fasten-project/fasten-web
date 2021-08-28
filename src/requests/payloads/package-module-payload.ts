@@ -14,7 +14,7 @@ export const PACKAGE_MODULE_SCHEMA = yup
     package_version_id: yup.number().integer().positive().required(),
 
     /** The module's namespace (class name). */
-    namespace: yup.string().required(),
+    name: yup.string().required(),
 
     /** The date when the module was published. */
     created_at: yup.date().max(new Date(Date.now())).nullable(),
@@ -47,7 +47,7 @@ export type ModulesResponsePayload = Module[];
 export const defaultModule: Module = {
   id: 0,
   package_version_id: 0,
-  namespace: "",
+  name: "",
   created_at: null,
   metadata: null,
 };
