@@ -91,7 +91,8 @@ class InternalVulnerabilitiesTable extends React.Component<
               )}
               {/* TODO: enhance details, so the vulnerability links to a specific callable. */}
               <Link to={`/packages/${step.package_name}/${step.version}`}>
-                {step.package_name}/{step.version}
+                {step.package_name}/{step.version}/{step.class_name}.
+                {step.method_name}
               </Link>
             </>
           );
