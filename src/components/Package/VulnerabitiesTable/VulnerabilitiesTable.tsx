@@ -27,7 +27,7 @@ export interface VulnerabilitiesTableState {
   isLoading: boolean;
 
   /** The list of entities included in the table. */
-  data: Vulnerability[];
+  data: Vulnerability;
 }
 
 class InternalVulnerabilitiesTable extends React.Component<
@@ -42,7 +42,7 @@ class InternalVulnerabilitiesTable extends React.Component<
 
     this.state = {
       isLoading: true,
-      data: [],
+      data: {},
     };
   }
 
@@ -64,7 +64,7 @@ class InternalVulnerabilitiesTable extends React.Component<
 
       this.setState({
         isLoading: false,
-        data: [vulners],
+        data: vulners,
       });
     } catch (error) {
       this.setState({
@@ -79,24 +79,23 @@ class InternalVulnerabilitiesTable extends React.Component<
    */
   renderRow = (entity: any): React.ReactNode => {
     return (
-      <StyledVersionRow key={`vulnerability_${entity.id}`}>
-        {entity.path &&
-          entity.path.map((step: any, index: number) => {
-            return (
-              <>
-                {index > 0 && <br />}
-                {index > 0 && (
-                  <span style={{ marginLeft: 50 }}>
-                    <BsArrowRight />{" "}
-                  </span>
-                )}
-                {/* TODO: enhance details, so the vulnerability links to a specific callable. */}
-                <Link to={`/packages/${step.package_name}/${step.version}`}>
-                  {step.package_name}/{step.version}
-                </Link>
-              </>
-            );
-          })}
+      <StyledVersionRow key={`vulnerability_${entity[0].id}`}>
+        {entity.map((step: any, index: number) => {
+          return (
+            <>
+              {index > 0 && <br />}
+              {index > 0 && (
+                <span style={{ marginLeft: 50 }}>
+                  <BsArrowRight />{" "}
+                </span>
+              )}
+              {/* TODO: enhance details, so the vulnerability links to a specific callable. */}
+              <Link to={`/packages/${step.package_name}/${step.version}`}>
+                {step.package_name}/{step.version}
+              </Link>
+            </>
+          );
+        })}
       </StyledVersionRow>
     );
   };
@@ -110,10 +109,10 @@ class InternalVulnerabilitiesTable extends React.Component<
       <StyledContainer>
         <h3>Vulnerabilities</h3>
         <hr />
-        {this.state.data.length == 0 && (
+        {this.state.data.vulnerabilities?.length == 0 && (
           <h2>No vulnerabilities found for this package!</h2>
         )}
-        {this.state.data.map(this.renderRow)}
+        {this.state.data.vulnerabilities?.map(this.renderRow)}
       </StyledContainer>
     );
   }

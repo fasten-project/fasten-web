@@ -8,17 +8,19 @@ export const PACKAGE_VULNERABILITY_SCHEMA = yup
   .object()
   .shape({
     // vulnerability: yup.string().required(),
-    path: array().of(
-      yup
-        .object()
-        .shape({
-          id: yup.number().positive().required(),
-          package_name: yup.string().required(),
-          version: yup.string().required(),
-          class_name: yup.string().required(),
-          method_name: yup.string().required(),
-        })
-        .required()
+    vulnerabilities: array().of(
+      array().of(
+        yup
+          .object()
+          .shape({
+            id: yup.number().positive().required(),
+            package_name: yup.string().required(),
+            version: yup.string().required(),
+            class_name: yup.string().required(),
+            method_name: yup.string().required(),
+          })
+          .required()
+      )
     ),
   })
   .required();
@@ -43,14 +45,16 @@ export type VulnerabilitiesResponsePayload = Vulnerability;
  */
 export const defaultVulnerability: Vulnerability = {
   // vulnerability: "https://demo.fasten-project.eu/",
-  path: [
-    {
-      id: 0,
-      package_name: "",
-      version: "",
-      class_name: "",
-      method_name: "",
-    },
+  vulnerabilities: [
+    [
+      {
+        id: 0,
+        package_name: "",
+        version: "",
+        class_name: "",
+        method_name: "",
+      },
+    ],
   ],
 };
 
