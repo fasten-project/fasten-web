@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { array } from "yup";
+import { FASTEN_URI_SCHEMA } from "./fasten-uri-payload";
 
 /**
  * Validation schema for {@link Callable}.
@@ -14,7 +15,7 @@ export const PACKAGE_CALLABLE_SCHEMA = yup
     module_id: yup.number().integer().positive().required(),
 
     /** The URI in the FASTEN system. */
-    fasten_uri: yup.string().required(),
+    fasten_uri: FASTEN_URI_SCHEMA,
 
     /** User-friendly, formatted string of method name. */
     method_name: yup.string().nullable(),
@@ -62,7 +63,22 @@ export type CallablesResponsePayload = Callable[];
 export const defaultCallable: Callable = {
   id: 0,
   module_id: 0,
-  fasten_uri: "",
+  fasten_uri: {
+    args: [],
+    rawProduct: "",
+    rawEntity: "",
+    className: "",
+    functionOrAttributeName: "",
+    rawVersion: "1.0.0",
+    uri: "",
+    returnType: {
+      rawEntity: "Logger",
+      className: "Logger",
+      uri: "Logger",
+    },
+    rawForge: "mvn",
+    rawNamespace: "",
+  },
   method_name: "",
   method_args: "",
   is_internal_call: true,

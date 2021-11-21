@@ -4,6 +4,7 @@ import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
 import { Callable } from "../../requests/payloads/package-callable-payload";
 import { PackageVersion } from "../../requests/payloads/package-versions-payload";
+import { FastenUri } from "../../requests/payloads/fasten-uri-payload";
 
 type VersionsTableData = {
   kind: "VERSIONS";
@@ -156,24 +157,53 @@ class InternalPackageTable extends React.Component<
 
   /**
    * Renders the package callable entity.
-   * @param entity is {@link Callable} to render.
+   * @param entity is {@link FastenUri} to render.
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
     const { pkg, pkgVersion, namespace } = this.props;
 
-    const encodedNamespace = encodeURIComponent(namespace || "...");
-    const encodedMethodArgs = encodeURIComponent(entity.method_args || "");
+    const encodedNamespace = encodeURIComponent(
+      entity.fasten_uri.className || "..."
+    );
+    const encodedMethodName = encodeURIComponent(
+      entity.fasten_uri.functionOrAttributeName || "..."
+    );
 
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
         <Link
           // TODO: will need to do something with callable path; it won't work this way.
-          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${entity.method_name}(${encodedMethodArgs})`}
+          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${encodedMethodName}`}
         >
-          {(entity.method_name &&
-            `${entity.method_name}(${entity.method_args || ""})`) ||
-            entity.fasten_uri}
+          {entity.fasten_uri.functionOrAttributeName}
         </Link>
+        ({" "}
+        {entity.fasten_uri.args.map((uri) => (
+          <>
+            <a
+              key={uri.rawEntity}
+              href={
+                `#/packages/${pkg}/${pkgVersion}/` +
+                encodeURIComponent(
+                  `/${entity.fasten_uri.rawNamespace}/${uri.className}`
+                )
+              }
+            >
+              {uri.className},
+            </a>{" "}
+          </>
+        ))}{" "}
+        ){" -> "}
+        <a
+          href={
+            `#/packages/${pkg}/${pkgVersion}/` +
+            encodeURIComponent(
+              `/${entity.fasten_uri.rawNamespace}/${entity.fasten_uri.returnType.className}`
+            )
+          }
+        >
+          {entity.fasten_uri.returnType.className}
+        </a>
       </StyledVersionRow>
     );
   };
