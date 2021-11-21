@@ -171,8 +171,7 @@ class InternalPackageTable extends React.Component<
           to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${entity.method_name}(${encodedMethodArgs})`}
         >
           {(entity.method_name &&
-            entity.method_args &&
-            `${entity.method_name}(${entity.method_args})`) ||
+            `${entity.method_name}(${entity.method_args || ""})`) ||
             entity.fasten_uri}
         </Link>
       </StyledVersionRow>
