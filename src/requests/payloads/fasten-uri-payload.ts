@@ -20,10 +20,10 @@ export const FASTEN_URI_SCHEMA = yup
     uri: yup.string().required(),
 
     /** User-friendly, formatted string of the class name. */
-    className: yup.string().nullable(),
+    className: yup.string().optional(),
 
     /** User-friendly, formatted string of the method name. */
-    functionOrAttributeName: yup.string().nullable(),
+    functionOrAttributeName: yup.string().optional(),
 
     /** User-friendly, formatted string of method's arguments. */
     args: yup.array().of(short_uri_schema).required(),
@@ -32,19 +32,19 @@ export const FASTEN_URI_SCHEMA = yup
     returnType: short_uri_schema,
 
     /** Raw string identifying forge of the entity. */
-    rawForge: yup.string().nullable(),
+    rawForge: yup.string().optional(),
 
     /** Raw string identifying product of the entity. */
-    rawProduct: yup.string().nullable(),
+    rawProduct: yup.string().optional(),
 
     /** Raw string identifying version of the entity. */
-    rawVersion: yup.string().nullable(),
+    rawVersion: yup.string().optional(),
 
     /** Raw string identifying namespace of the entity. */
-    rawNamespace: yup.string().nullable(),
+    rawNamespace: yup.string().optional(),
 
     /** Raw string identifying whole entity. */
-    rawEntity: yup.string().nullable(),
+    rawEntity: yup.string().optional(),
   })
   .required();
 

@@ -5,6 +5,7 @@ import { Module } from "../../requests/payloads/package-module-payload";
 import { Callable } from "../../requests/payloads/package-callable-payload";
 import { PackageVersion } from "../../requests/payloads/package-versions-payload";
 import { FastenUri } from "../../requests/payloads/fasten-uri-payload";
+import config from "../../config";
 
 type VersionsTableData = {
   kind: "VERSIONS";
@@ -180,33 +181,48 @@ class InternalPackageTable extends React.Component<
         ({" "}
         {entity.fasten_uri.args.map((uri) => (
           <>
-            <a
-              key={uri.rawEntity}
-              href={
-                `#/packages/${pkg}/${pkgVersion}/` +
-                encodeURIComponent(
-                  `/${entity.fasten_uri.rawNamespace}/${uri.className}`
-                )
-              }
-            >
-              {uri.className},
-            </a>{" "}
+            {this.renderType(
+              pkg,
+              pkgVersion,
+              entity.fasten_uri.rawNamespace,
+              uri
+            )}
+            {", "}
           </>
         ))}{" "}
         ){" : "}
-        <a
-          href={
-            `#/packages/${pkg}/${pkgVersion}/` +
-            encodeURIComponent(
-              `/${entity.fasten_uri.rawNamespace}/${entity.fasten_uri.returnType.className}`
-            )
-          }
-        >
-          {entity.fasten_uri.returnType.className}
-        </a>
+        {this.renderType(
+          pkg,
+          pkgVersion,
+          entity.fasten_uri.rawNamespace,
+          entity.fasten_uri.returnType
+        )}
       </StyledVersionRow>
     );
   };
+
+  renderType(
+    pkg: string,
+    pkgVersion: string,
+    rawNamespace?: string,
+    type?: any
+  ): React.ReactNode {
+    if (config.ignoreNamespaceLinkage.includes(type.rawNamespace)) {
+      return <>{type.className}</>;
+    } else {
+      return (
+        <a
+          key={type.rawEntity}
+          href={
+            `#/packages/${pkg}/${pkgVersion}/` +
+            encodeURIComponent(`/${rawNamespace}/${type.className}`)
+          }
+        >
+          {type.className}
+        </a>
+      );
+    }
+  }
 
   renderRows(): React.ReactNode {
     if (this.state.data?.entities.length == 0) {
