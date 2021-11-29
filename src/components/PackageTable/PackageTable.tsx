@@ -193,7 +193,7 @@ class InternalPackageTable extends React.Component<
             </a>{" "}
           </>
         ))}{" "}
-        ){" -> "}
+        ){" : "}
         <a
           href={
             `#/packages/${pkg}/${pkgVersion}/` +
