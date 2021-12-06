@@ -215,7 +215,9 @@ class InternalPackageTable extends React.Component<
           key={type.rawEntity}
           href={
             `#/packages/${pkg}/${pkgVersion}/` +
-            encodeURIComponent(`/${rawNamespace}/${type.className}`)
+            encodeURIComponent(
+              `/${type.rawNamespace || rawNamespace}/${type.className}`
+            )
           }
         >
           {type.className}
