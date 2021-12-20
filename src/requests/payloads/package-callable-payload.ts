@@ -17,12 +17,6 @@ export const PACKAGE_CALLABLE_SCHEMA = yup
     /** The URI in the FASTEN system. */
     fasten_uri: FASTEN_URI_SCHEMA,
 
-    /** User-friendly, formatted string of method name. */
-    method_name: yup.string().nullable(),
-
-    /** User-friendly, formatted string of method arguments. */
-    method_args: yup.string().nullable(),
-
     /** Is the callable internal within the package? */
     is_internal_call: yup.boolean().required(),
 
@@ -79,8 +73,6 @@ export const defaultCallable: Callable = {
     rawForge: "mvn",
     rawNamespace: "",
   },
-  method_name: "",
-  method_args: "",
   is_internal_call: true,
   line_start: 0,
   line_end: 0,
