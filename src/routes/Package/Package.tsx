@@ -25,6 +25,7 @@ import { defaultCallable } from "../../requests/payloads/package-callable-payloa
 import { GoRepo } from "react-icons/go";
 import { BeatLoader } from "react-spinners";
 import colours from "../../theme/colours";
+import { NotFound } from "../NotFound";
 
 /**
  * Props for the Package route.
@@ -52,6 +53,9 @@ export interface PackageState {
 
   /** The loaded Package instance from API. */
   pkg: PackageModel;
+
+  /** Did API respond with 404 upon the request? */
+  isNotFound: boolean;
 }
 
 /**
@@ -68,6 +72,7 @@ class InternalPackage extends React.Component<
     this.state = {
       isLoading: true,
       pkg: defaultPackage,
+      isNotFound: false,
     };
   }
 
@@ -91,12 +96,13 @@ class InternalPackage extends React.Component<
       this.setState({
         isLoading: false,
         pkg: pkga,
+        isNotFound: false,
       });
     } catch (error) {
       this.setState({
         isLoading: false,
+        isNotFound: true,
       });
-      this.props.history.push("/oops");
     }
   }
 
@@ -122,8 +128,12 @@ class InternalPackage extends React.Component<
   }
 
   render() {
-    const { pkg } = this.state;
+    const { pkg, isNotFound } = this.state;
     const { verParam, moduleParam, callableParam } = this.props.match.params;
+
+    if (isNotFound) {
+      return <NotFound />;
+    }
 
     let namespace = moduleParam ? decodeURIComponent(moduleParam) : null;
     let fasten_uri = callableParam ? decodeURIComponent(callableParam) : null;
