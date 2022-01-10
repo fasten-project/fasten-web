@@ -6,7 +6,8 @@ import {
   getModules,
   getPackageVersions,
 } from "../../requests/services/package";
-import { VulnerabilitiesTable } from "./VulnerabitiesTable";
+import { VulnerableCallChainsTable } from "../VulnerableCallChainsTable";
+import { getChainsForPackage } from "../../requests/services/vulnerable-call-chains";
 
 export interface PackageProps extends RouteComponentProps {
   /** The package name that needs to be taken. */
@@ -40,12 +41,13 @@ class InternalPackage extends React.Component<PackageProps, PackageState> {
         },
       },
       {
-        label: "Vulnerabilities",
+        label: "Vulnerable Call Chains",
         body: () => {
           return (
-            <VulnerabilitiesTable
-              pkg={this.props.pkg}
-              pkgVersion={this.props.pkgVer}
+            <VulnerableCallChainsTable
+              retrieveEntitiesRequest={() =>
+                getChainsForPackage(this.props.pkg, this.props.pkgVer)
+              }
             />
           );
         },

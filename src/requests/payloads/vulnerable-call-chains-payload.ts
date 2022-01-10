@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { FASTEN_URI_SCHEMA } from "./fasten-uri-payload";
+import { array } from "yup";
 
 /**
  * Helper validation schema for a Vulnerability object.
@@ -14,29 +15,37 @@ export const VULNERABILITY_SCHEMA = yup
   .required();
 
 /**
- * Validation schema for {@link VulnerableCallChains}.
+ * Validation schema for {@link VulnerableCallChain}.
  */
-export const VULNERABLE_CALL_CHAINS_SCHEMA = yup.array().of(
-  yup.object().shape({
-    vulnerabilities: yup.array().of(VULNERABILITY_SCHEMA),
-    chains: yup.array().of(FASTEN_URI_SCHEMA),
+export const VULNERABLE_CALL_CHAIN_SCHEMA = yup
+  .object()
+  .shape({
+    vulnerabilities: yup.array().of(VULNERABILITY_SCHEMA).min(1).required(),
+    chain: yup.array().of(FASTEN_URI_SCHEMA).min(1).required(),
   })
+  .required();
+
+/**
+ * Validation schema for {@link VulnerableCallChain[]}
+ */
+export const VULNERABLE_CALL_CHAINS_PAYLOAD_RESPONSE = array().of(
+  VULNERABLE_CALL_CHAIN_SCHEMA
 );
 
 /**
- * The type of the Vulnerable Call Chains instance generated from yup schema {@link PACKAGE_VULNERABILITY_SCHEMA}.
+ * The type of the Vulnerable Call Chain Link instance generated from yup schema {@link VULNERABLE_CALL_CHAIN_SCHEMA}.
  */
-export type VulnerableCallChains = yup.InferType<
-  typeof VULNERABLE_CALL_CHAINS_SCHEMA
+export type VulnerableCallChain = yup.InferType<
+  typeof VULNERABLE_CALL_CHAIN_SCHEMA
 >;
 
 /**
  * Validates that the given response payload is as expected.
  * @param {any} payload - the response payload.
- * @returns {boolean} - whether or not the payload is type-safe for {@link VulnerableCallChains}.
+ * @returns {boolean} - whether or not the payload is type-safe for {@link VulnerableCallChain[]}.
  */
 export function isValidPackageVulnerableCallChainsResponsePayload(
   payload: any
-): payload is VulnerableCallChains {
-  return VULNERABLE_CALL_CHAINS_SCHEMA.isValidSync(payload);
+): payload is VulnerableCallChain[] {
+  return VULNERABLE_CALL_CHAINS_PAYLOAD_RESPONSE.isValidSync(payload);
 }
