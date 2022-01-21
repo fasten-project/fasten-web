@@ -3,7 +3,8 @@ const config = {
   api: "https://api.fasten-project.eu",
   apiSuffix: "api",
   git: "https://github.com/fasten-project/",
-  webpage: "http://fasten-project.eu/",
+  webpage: "https://fasten-project.eu/",
+  ignoreNamespaceLinkage: ["java.lang", "java.util"],
 };
 
 export default config;

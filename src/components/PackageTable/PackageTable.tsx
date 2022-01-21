@@ -4,6 +4,8 @@ import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
 import { Callable } from "../../requests/payloads/package-callable-payload";
 import { PackageVersion } from "../../requests/payloads/package-versions-payload";
+import { FastenUri } from "../../requests/payloads/fasten-uri-payload";
+import config from "../../config";
 
 type VersionsTableData = {
   kind: "VERSIONS";
@@ -156,28 +158,73 @@ class InternalPackageTable extends React.Component<
 
   /**
    * Renders the package callable entity.
-   * @param entity is {@link Callable} to render.
+   * @param entity is {@link FastenUri} to render.
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
     const { pkg, pkgVersion, namespace } = this.props;
 
-    const encodedNamespace = encodeURIComponent(namespace || "...");
-    const encodedMethodArgs = encodeURIComponent(entity.method_args || "");
+    const encodedNamespace = encodeURIComponent(
+      entity.fasten_uri.className || "..."
+    );
+    const encodedMethodName = encodeURIComponent(
+      entity.fasten_uri.functionOrAttributeName || "..."
+    );
 
     return (
       <StyledVersionRow key={`callable_${entity.id}`}>
         <Link
           // TODO: will need to do something with callable path; it won't work this way.
-          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${entity.method_name}(${encodedMethodArgs})`}
+          to={`/packages/${pkg}/${pkgVersion}/${encodedNamespace}/${encodedMethodName}`}
         >
-          {(entity.method_name &&
-            entity.method_args &&
-            `${entity.method_name}(${entity.method_args})`) ||
-            entity.fasten_uri}
+          {entity.fasten_uri.functionOrAttributeName}
         </Link>
+        ({" "}
+        {entity.fasten_uri.args.map((uri) => (
+          <>
+            {this.renderType(
+              pkg,
+              pkgVersion,
+              entity.fasten_uri.rawNamespace,
+              uri
+            )}
+            {", "}
+          </>
+        ))}{" "}
+        ){" : "}
+        {this.renderType(
+          pkg,
+          pkgVersion,
+          entity.fasten_uri.rawNamespace,
+          entity.fasten_uri.returnType
+        )}
       </StyledVersionRow>
     );
   };
+
+  renderType(
+    pkg: string,
+    pkgVersion: string,
+    rawNamespace?: string,
+    type?: any
+  ): React.ReactNode {
+    if (config.ignoreNamespaceLinkage.includes(type.rawNamespace)) {
+      return <>{type.className}</>;
+    } else {
+      return (
+        <a
+          key={type.rawEntity}
+          href={
+            `#/packages/${pkg}/${pkgVersion}/` +
+            encodeURIComponent(
+              `/${type.rawNamespace || rawNamespace}/${type.className}`
+            )
+          }
+        >
+          {type.className}
+        </a>
+      );
+    }
+  }
 
   renderRows(): React.ReactNode {
     if (this.state.data?.entities.length == 0) {
