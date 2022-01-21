@@ -4,7 +4,6 @@ import { StyledContainer, StyledVersionRow } from "./PackageTable.styled";
 import { Module } from "../../requests/payloads/package-module-payload";
 import { Callable } from "../../requests/payloads/package-callable-payload";
 import { PackageVersion } from "../../requests/payloads/package-versions-payload";
-import { FastenUri } from "../../requests/payloads/fasten-uri-payload";
 import config from "../../config";
 
 type VersionsTableData = {
@@ -161,7 +160,7 @@ class InternalPackageTable extends React.Component<
    * @param entity is {@link FastenUri} to render.
    */
   renderCallableRow = (entity: Callable): React.ReactNode => {
-    const { pkg, pkgVersion, namespace } = this.props;
+    const { pkg, pkgVersion } = this.props;
 
     const encodedNamespace = encodeURIComponent(
       entity.fasten_uri.className || "..."
