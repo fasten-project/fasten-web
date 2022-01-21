@@ -5,6 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 import { HashRouter } from "react-router-dom";
 
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <React.StrictMode>

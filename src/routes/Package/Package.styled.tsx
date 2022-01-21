@@ -3,7 +3,7 @@ import metrics from "../../theme/metrics";
 import colours from "../../theme/colours";
 
 export const StyledContainer = styled.div({
-  width: "50%",
+  width: "75%",
   margin: "5% auto",
 });
 

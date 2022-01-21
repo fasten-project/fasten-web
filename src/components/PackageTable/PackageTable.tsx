@@ -178,7 +178,7 @@ class InternalPackageTable extends React.Component<
           {entity.fasten_uri.functionOrAttributeName}
         </Link>
         ({" "}
-        {entity.fasten_uri.args.map((uri) => (
+        {entity.fasten_uri.args.map((uri, i) => (
           <>
             {this.renderType(
               pkg,
@@ -186,7 +186,7 @@ class InternalPackageTable extends React.Component<
               entity.fasten_uri.rawNamespace,
               uri
             )}
-            {", "}
+            {i + 1 != entity.fasten_uri.args.length && ", "}
           </>
         ))}{" "}
         ){" : "}

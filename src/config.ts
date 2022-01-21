@@ -1,5 +1,6 @@
 const config = {
   // api: "http://127.0.0.1:8080",
+  // apiSuffix: "",
   api: "https://api.fasten-project.eu",
   apiSuffix: "api",
   git: "https://github.com/fasten-project/",
